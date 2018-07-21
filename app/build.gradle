@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
+
+greendao {
+    //数据库的schema版本，也可以理解为数据库版本号
+    schemaVersion 1
+    //设置DaoMaster、DaoSession、Dao包名，也就是要放置这些类的包的全路径。
+    daoPackage 'com.cds.iot.data.source.local.greendao'
+    //设置DaoMaster、DaoSession、Dao目录
+    targetGenDir 'src/main/java'
+}
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion '25.0.0'
+    defaultConfig {
+        applicationId "com.cds.iot"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    final SUPPORT_VERSION = '25.4.0+'
+    compile "com.android.support:support-v4:$SUPPORT_VERSION"
+    compile "com.android.support:appcompat-v7:$SUPPORT_VERSION"
+    compile "com.android.support:design:$SUPPORT_VERSION"
+    compile "com.android.support:recyclerview-v7:$SUPPORT_VERSION"
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+
+    //dex
+//    compile 'com.android.support:multidex:1.0.3'
+    //工具库utils
+    compile 'com.blankj:utilcode:1.7.1'
+
+    //retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.4.0'
+    //支持Gson 及 rxjava
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    //rxjava rxandroid
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.13'
+    compile 'com.squareup.okhttp3:okhttp:3.10.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    //butterknife
+    compile 'com.jakewharton:butterknife:7.0.1'
+    //RxTools
+    compile 'com.github.vondear:RxTools:v1.7.6.8'
+    //eventbus
+    compile 'org.greenrobot:eventbus:3.1.1'
+    //UI圆角图库
+    compile 'de.hdodenhof:circleimageview:2.2.0'
+    //导航栏库
+    compile 'devlight.io:navigationtabbar:1.2.5'
+    //下拉刷新库
+    compile 'com.marshalchen.ultimaterecyclerview:library:0.7.3'
+    //图片加载库
+    compile 'com.squareup.picasso:picasso:2.5.2+'
+    //Zxing核心包
+    compile 'com.google.zxing:core:3.3.0'
+
+    //数据库类库
+    compile 'org.greenrobot:greendao:3.2.2+'
+    compile 'org.greenrobot:greendao-generator:3.2.2+'
+    compile 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v2.0.3+'
+
+    //有时间选择器和选项选择器
+    compile 'com.contrarywind:Android-PickerView:4.1.3'
+}

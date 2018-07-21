@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/action_bar" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:drawablePadding="@dimen/widget_size_20"
+        android:drawableTop="@mipmap/ic_launcher_round"
+        android:text="长按保存图片\r\n或者直接扫一扫关注我们"
+        android:lineSpacingExtra="@dimen/widget_size_10"
+        android:gravity="center"
+        style="@style/hintNullStyle"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/text_enable_color" />
+</RelativeLayout>
