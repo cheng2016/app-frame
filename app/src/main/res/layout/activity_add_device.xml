@@ -7,33 +7,49 @@
 
     <include layout="@layout/action_bar" />
 
-    <LinearLayout
-        style="@style/inputBgStyle"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_marginLeft="@dimen/widget_size_27"
-        android:layout_marginRight="@dimen/widget_size_27"
-        android:layout_marginTop="@dimen/widget_size_27">
+        android:layout_height="@dimen/widget_size_48"
+        android:layout_marginLeft="@dimen/widget_size_20"
+        android:layout_marginRight="@dimen/widget_size_20"
+        android:layout_marginTop="@dimen/widget_size_30">
 
-        <TextView
-            style="@style/hintNullStyle"
+        <LinearLayout
+            style="@style/inputBgStyle"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+            <TextView
+                style="@style/hintNullStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设备ID：" />
+
+            <EditText
+                style="@style/inputNullStyle"
+                android:layout_width="match_parent"
+                android:layout_marginRight="@dimen/widget_size_40"
+                android:layout_height="@dimen/widget_size_27" />
+        </LinearLayout>
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="设备ID：" />
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/widget_size_10"
+            android:src="@mipmap/btn_scan_qrcode" />
 
-        <EditText
-            style="@style/inputNullStyle"
-            android:layout_width="@dimen/widget_size_150"
-            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
-
-    </LinearLayout>
 
     <LinearLayout
         style="@style/inputBgStyle"
         android:layout_width="match_parent"
-        android:layout_marginLeft="@dimen/widget_size_27"
-        android:layout_marginRight="@dimen/widget_size_27"
-        android:layout_marginTop="@dimen/widget_size_27">
+        android:layout_height="@dimen/widget_size_48"
+        android:layout_marginLeft="@dimen/widget_size_20"
+        android:layout_marginRight="@dimen/widget_size_20"
+        android:layout_marginTop="@dimen/widget_size_20">
 
         <TextView
             style="@style/hintNullStyle"
@@ -43,8 +59,8 @@
 
         <EditText
             style="@style/inputNullStyle"
-            android:layout_width="@dimen/widget_size_150"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/widget_size_27" />
 
     </LinearLayout>
 
@@ -52,9 +68,9 @@
     <android.support.v7.widget.AppCompatButton
         style="@style/buttonStyle"
         android:layout_width="match_parent"
-        android:layout_marginLeft="@dimen/widget_size_27"
-        android:layout_marginRight="@dimen/widget_size_27"
-        android:layout_marginTop="@dimen/widget_size_27"
+        android:layout_marginLeft="@dimen/widget_size_20"
+        android:layout_marginRight="@dimen/widget_size_20"
+        android:layout_marginTop="@dimen/widget_size_30"
         android:text="添加" />
 
 

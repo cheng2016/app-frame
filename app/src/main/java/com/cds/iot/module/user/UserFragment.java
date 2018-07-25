@@ -3,11 +3,12 @@ package com.cds.iot.module.user;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.cds.iot.R;
 import com.cds.iot.base.BaseFragment;
 import com.cds.iot.module.about.AboutActivity;
-import com.cds.iot.module.description.ProductDescritptionActivity;
+import com.cds.iot.module.product.ProductDescritptionActivity;
 import com.cds.iot.module.feedback.FeedBackActivity;
 import com.cds.iot.module.setting.SettingActivity;
 import com.cds.iot.module.user.detail.UserDetailActivity;
@@ -35,6 +36,7 @@ public class UserFragment extends BaseFragment implements UserContract.View, Vie
         view.findViewById(R.id.feedback_layout).setOnClickListener(this);
         view.findViewById(R.id.wx_public_number_layout).setOnClickListener(this);
         view.findViewById(R.id.user_detail_layout).setOnClickListener(this);
+        ((TextView)view.findViewById(R.id.title)).setText("我的");
     }
 
     @Override

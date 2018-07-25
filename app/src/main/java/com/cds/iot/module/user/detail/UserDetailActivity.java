@@ -1,5 +1,6 @@
 package com.cds.iot.module.user.detail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.cds.iot.R;
 import com.cds.iot.base.BaseActivity;
+import com.cds.iot.module.user.changephone.ChangePhoneActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,6 +38,7 @@ public class UserDetailActivity extends BaseActivity implements View.OnClickList
         findViewById(R.id.back_button).setOnClickListener(this);
         findViewById(R.id.birthday_layout).setOnClickListener(this);
         findViewById(R.id.sex_layout).setOnClickListener(this);
+        findViewById(R.id.phone_layout).setOnClickListener(this);
         birthdayTv = (TextView) findViewById(R.id.birthday_tv);
         sexTv = (TextView) findViewById(R.id.sex_tv);
     }
@@ -97,6 +100,13 @@ public class UserDetailActivity extends BaseActivity implements View.OnClickList
                 pvOptions.setPicker(optionList);
                 pvOptions.show();
                 break;
+            case R.id.phone_layout:
+                Intent intent = new Intent(this, ChangePhoneActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
         }
+
     }
 }

@@ -6,34 +6,60 @@
     android:background="@color/app_content_bg"
     android:orientation="vertical">
 
-    <include layout="@layout/action_bar" />
+    <!--    <include layout="@layout/action_bar" />-->
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_height="@dimen/widget_size_180"
-        android:background="@mipmap/bg_myinfo">
+        android:layout_height="@dimen/widget_size_220">
 
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            app:srcCompat="@mipmap/btn_male_big" />
+            android:background="@mipmap/bg_myinfo"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/imageView4"
-            android:layout_width="@dimen/widget_size_100"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:drawablePadding="@dimen/widget_size_10"
-            android:layout_marginTop="@dimen/widget_size_16"
-            android:drawableRight="@mipmap/btn_modification_mine"
-            android:text="点击编辑"
-            android:background="@null"
-            android:textColor="#404040" />
-    </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:srcCompat="@mipmap/btn_male_big" />
+
+            <EditText
+                android:id="@+id/imageView4"
+                android:layout_width="@dimen/widget_size_140"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/widget_size_16"
+                android:gravity="center"
+                android:background="@null"
+                android:drawablePadding="@dimen/widget_size_10"
+                android:drawableRight="@mipmap/btn_modification_mine"
+                android:text="唐文熙"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:textColor="#404040" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/back_button"
+            android:layout_width="@dimen/widget_size_48"
+            android:layout_height="@dimen/widget_size_48"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/widget_size_8"
+                app:srcCompat="@mipmap/btn_back_main" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
 
     <RelativeLayout
         android:id="@+id/sex_layout"
@@ -64,10 +90,10 @@
             android:layout_height="?android:attr/listPreferredItemHeight"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:drawablePadding="@dimen/widget_size_10"
             android:drawableRight="@mipmap/icn_goto_big"
             android:ellipsize="middle"
             android:gravity="center_vertical|right"
-            android:drawablePadding="@dimen/widget_size_10"
             android:paddingRight="10dp"
             android:singleLine="true"
             android:text="男"
@@ -100,10 +126,10 @@
             android:layout_height="?android:attr/listPreferredItemHeight"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:drawablePadding="@dimen/widget_size_10"
             android:drawableRight="@mipmap/icn_goto_big"
             android:ellipsize="middle"
             android:gravity="center_vertical|right"
-            android:drawablePadding="@dimen/widget_size_10"
             android:paddingRight="10dp"
             android:singleLine="true"
             android:text="1994.5.8"
@@ -113,6 +139,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/phone_layout"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/user_info_cell_height"
         android:layout_marginTop="@dimen/widget_size_30"
@@ -140,10 +167,10 @@
             android:layout_height="?android:attr/listPreferredItemHeight"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:drawablePadding="@dimen/widget_size_10"
             android:drawableRight="@mipmap/icn_goto_big"
             android:ellipsize="middle"
             android:gravity="center_vertical|right"
-            android:drawablePadding="@dimen/widget_size_10"
             android:paddingRight="10dp"
             android:singleLine="true"
             android:text="13886586611"
@@ -174,8 +201,8 @@
             android:layout_height="?android:attr/listPreferredItemHeight"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:drawableRight="@mipmap/icn_goto_big"
             android:drawablePadding="@dimen/widget_size_10"
+            android:drawableRight="@mipmap/icn_goto_big"
             android:ellipsize="middle"
             android:gravity="center_vertical|right"
             android:paddingRight="10dp"

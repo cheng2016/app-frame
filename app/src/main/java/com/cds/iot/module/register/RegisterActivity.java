@@ -2,6 +2,7 @@ package com.cds.iot.module.register;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.cds.iot.R;
 import com.cds.iot.base.BaseActivity;
@@ -16,11 +17,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     protected void initView(Bundle savedInstanceState) {
         findViewById(R.id.back_button).setVisibility(View.VISIBLE);
         findViewById(R.id.back_button).setOnClickListener(this);
+
     }
 
     @Override
     protected void initData() {
-
+        ((TextView) findViewById(R.id.title)).setText("注册");
     }
 
     @Override

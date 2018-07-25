@@ -5,6 +5,7 @@ import android.content.Context;
 import com.blankj.utilcode.util.Utils;
 import com.cds.iot.base.BaseApplication;
 import com.cds.iot.util.Logger;
+import com.cds.iot.util.ToastUtils;
 
 /**
  * Created by chengzj on 2017/6/17.
@@ -23,12 +24,12 @@ public class App extends BaseApplication{
         super.onCreate();
         mInstance = this;
         initAppTool();
-        Logger.initialize(this,true, Logger.Level.VERBOSE);
     }
 
     void initAppTool(){
-
         //初始化工具类
         Utils.init(this);
+        Logger.initialize(this,true, Logger.Level.VERBOSE);
+        ToastUtils.isShow = false;
     }
 }

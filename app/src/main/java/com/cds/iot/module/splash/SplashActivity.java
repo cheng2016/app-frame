@@ -13,11 +13,11 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.view.KeyEvent;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.cds.iot.R;
 import com.cds.iot.base.BaseActivity;
 import com.cds.iot.module.login.LoginActivity;
 import com.cds.iot.util.Logger;
+import com.cds.iot.util.ToastUtils;
 import com.vondear.rxtools.RxBarTool;
 
 import java.lang.reflect.Method;
@@ -207,7 +207,7 @@ public class SplashActivity extends BaseActivity{
     @Override
     protected void initView(Bundle savedInstanceState) {
 //        RxToast.showToast(this, "正在检查版本更新...", 500);
-        ToastUtils.showShort("正在检查版本更新");
+        ToastUtils.showShort(this,"正在检查版本更新");
 
         /*handler.postDelayed(new Runnable() {
             @Override

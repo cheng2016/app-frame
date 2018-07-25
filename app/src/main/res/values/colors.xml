@@ -150,8 +150,8 @@
     <color name="darkblue">#00008b</color><!--暗蓝色 -->
     <color name="navy">#000080</color><!--海军色 -->
     <color name="black">#000000</color><!--黑色 -->
-    <color name="transparent">#0000</color><!-- 透明 -->
-    <color name="transparent2">#8000</color><!-- 透明 -->
+
+    <color name="transparent">#00000000</color><!-- 透明 -->
 
     <color name="input_stroke">#DBDBDB</color>
 
@@ -179,4 +179,11 @@
 
     <color name="confirm_text_color">#FF8484</color>
     <color name="cancel_text_color">#30D6DC</color>
+
+
+    <color name="trans">#00000000</color>
+    <color name="alertdialog_line">#c6c6c6</color>
+    <color name="actionsheet_blue">#037BFF</color>
+    <color name="actionsheet_red">#FD4A2E</color>
+    <color name="actionsheet_gray">#8F8F8F</color>
 </resources>

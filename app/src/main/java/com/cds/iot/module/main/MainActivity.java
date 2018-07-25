@@ -36,18 +36,18 @@ public class MainActivity extends BaseActivity {
         final ArrayList<NavigationTabBar.Model> models = new ArrayList<>();
         models.add(
                 new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.ic_dashboard_black_24dp),
+                        getResources().getDrawable(R.mipmap.btn_device),
                         Color.parseColor(colors[0]))
-//                        .selectedIcon(getResources().getDrawable(R.drawable.ic_dashboard_black_24dp))
+                        .selectedIcon(getResources().getDrawable(R.mipmap.btn_device_current))
                         .title(getString(R.string.device))
 //                        .badgeTitle("NTB")
                         .build()
         );
         models.add(
                 new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.ic_notifications_black_24dp),
+                        getResources().getDrawable(R.mipmap.btn_message),
                         Color.parseColor(colors[1]))
-//                        .selectedIcon(getResources().getDrawable(R.drawable.ic_home_black_24dp))
+                        .selectedIcon(getResources().getDrawable(R.mipmap.btn_message_current))
                         .title(getString(R.string.message))
 //                        .badgeTitle("with")
                         .build()
@@ -55,9 +55,9 @@ public class MainActivity extends BaseActivity {
 
         models.add(
                 new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.ic_home_black_24dp),
+                        getResources().getDrawable(R.mipmap.btn_mine),
                         Color.parseColor(colors[2]))
-//                        .selectedIcon(getResources().getDrawable(R.drawable.ic_notifications_black_24dp))
+                        .selectedIcon(getResources().getDrawable(R.mipmap.btn_mine_current))
                         .title(getString(R.string.my))
 //                        .badgeTitle("with")
                         .build()

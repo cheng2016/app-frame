@@ -78,7 +78,6 @@
             android:layout_height="?android:attr/listPreferredItemHeight"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/wx_title"
             android:drawableRight="@mipmap/icn_goto_big"
             android:ellipsize="middle"
             android:gravity="center_vertical|right"

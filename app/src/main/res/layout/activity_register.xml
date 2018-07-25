@@ -17,11 +17,10 @@
         android:layout_marginRight="@dimen/widget_size_20"
         android:layout_marginTop="@dimen/widget_size_30"
         android:ems="10"
+        android:digits="0123456789"
+        android:inputType="phone"
         android:hint="请输入手机号" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/password_edit"
@@ -34,7 +33,6 @@
             android:layout_marginTop="@dimen/widget_size_20"
             android:ems="10"
             android:hint="请输入密码" />
-    </FrameLayout>
 
 
     <RelativeLayout
@@ -47,6 +45,8 @@
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/code_edit"
             style="@style/inputStyle"
+            android:digits="0123456789"
+            android:inputType="number"
             android:layout_width="match_parent"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"

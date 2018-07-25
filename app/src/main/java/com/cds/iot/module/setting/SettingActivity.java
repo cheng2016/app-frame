@@ -13,7 +13,6 @@ import com.cds.iot.module.setting.notify.MessageNotifyActivity;
 import com.cds.iot.module.setting.update.UpdateActivity;
 import com.cds.iot.util.AppManager;
 import com.cds.iot.util.AppUtils;
-import com.cds.iot.util.DeviceUtils;
 import com.cds.iot.view.CustomDialog;
 
 public class SettingActivity extends BaseActivity implements View.OnClickListener {
@@ -35,11 +34,13 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         findViewById(R.id.message_notify_layout).setOnClickListener(this);
         findViewById(R.id.clean_cache_layout).setOnClickListener(this);
         versionNameTv = (TextView) findViewById(R.id.version_name_tv);
+
     }
 
     @Override
     protected void initData() {
         versionNameTv.setText(AppUtils.getVersionName(this));
+        ((TextView) findViewById(R.id.title)).setText("设置");
     }
 
     @Override

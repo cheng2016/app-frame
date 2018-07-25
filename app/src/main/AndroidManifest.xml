@@ -62,7 +62,7 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name=".module.description.ProductDescritptionActivity"
+            android:name=".module.product.ProductDescritptionActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
@@ -101,6 +101,12 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".module.user.changephone.ChangePhoneActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -110,4 +116,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 在SD卡中创建与删除文件权限 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+
+    <!--请求访问使用照相设备-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 </manifest>

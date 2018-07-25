@@ -3,10 +3,12 @@ package com.cds.iot.base;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.cds.iot.module.service.BindService;
 import com.cds.iot.util.AppManager;
@@ -49,7 +51,23 @@ public abstract class BaseActivity extends AppCompatActivity{
         initView(savedInstanceState);
         initData();
         AppManager.getInstance().addActivity(this);
+        changeStatusBarTextColor(true);
     }
+
+    /**
+     * 改变状态栏字体颜色值
+     * @param isBlack
+     */
+    private void changeStatusBarTextColor(boolean isBlack) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            if (isBlack) {
+                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//设置状态栏黑色字体
+            }else {
+                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);//恢复状态栏白色字体
+            }
+        }
+    }
+
 
     protected abstract int getLayoutId();
 
