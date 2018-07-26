@@ -9,6 +9,7 @@
 - Retrofit + Rxjava  + Mvp 实践
 - 支持 Https
 - 微信第三方登录
+- 使用 RadioGroup + viewPager 底部导航栏
 - 自定义对话框
 - 清空缓存功能
 - 时间选择控件
