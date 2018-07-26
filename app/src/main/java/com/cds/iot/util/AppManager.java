@@ -5,6 +5,10 @@ import android.app.Activity;
 import java.util.Iterator;
 import java.util.Stack;
 
+/**
+ *  activity 管理类
+ *  Created by chengzj on 2018/7/26.
+ */
 public class AppManager {
 
     public static Stack<Activity> getActivityStack() {
