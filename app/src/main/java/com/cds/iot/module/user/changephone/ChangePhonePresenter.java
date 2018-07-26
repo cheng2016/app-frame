@@ -6,7 +6,7 @@ import com.cds.iot.data.source.remote.HttpFactory;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class ChangePhonePresenter implements ChangePhoneContract.Presenter {
-    public final static String TAG = "UserPresenter";
+    public final static String TAG = "ChangePhonePresenter";
     private ChangePhoneContract.View view;
     private HttpApi mHttpApi;
     private CompositeDisposable mCompositeDisposable;

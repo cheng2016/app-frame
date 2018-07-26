@@ -1,5 +1,6 @@
 package com.cds.iot.data.source.remote;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.cds.iot.App;
@@ -7,6 +8,7 @@ import com.cds.iot.util.NetUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.CacheControl;
@@ -35,6 +37,16 @@ public class HttpFactory {
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(HttpApi.yt_url)
                 .client(getOkClient())
+                .build();
+        return retrofit.create(service);
+    }
+
+    public static <T> T createSSLService(final Class<T> service,Context context) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(getSSLClient(context))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(Https.wxBaseurl)
                 .build();
         return retrofit.create(service);
     }
@@ -103,4 +115,28 @@ public class HttpFactory {
             }
         }
     };
+
+    public static OkHttpClient getSSLClient(Context context){
+        OkHttpClient.Builder builder =  new OkHttpClient.Builder()
+                .writeTimeout(30 * 1000, TimeUnit.MILLISECONDS)
+                .readTimeout(20 * 1000, TimeUnit.MILLISECONDS)
+                .connectTimeout(15 * 1000, TimeUnit.MILLISECONDS)
+                .addInterceptor(httpLoggingInterceptor);
+        HttpsUtils.SSLParams sslParams = null;
+//      sslParams = setInputStream( new Buffer().writeUtf8(WEIXIN).inputStream());
+
+        try {
+            sslParams = setInputStream(context.getAssets().open("mp.weixin.qq.com.crt"));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        builder.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager);
+
+        return builder.build();
+    }
+
+    private static HttpsUtils.SSLParams setInputStream(InputStream... inputStream){
+        return HttpsUtils.getSslSocketFactory(null, null, inputStream);
+    }
 }

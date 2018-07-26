@@ -15,7 +15,6 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-
 import com.cds.iot.R;
 
 import java.util.ArrayList;

@@ -112,8 +112,8 @@
             android:layout_height="?android:attr/listPreferredItemHeight"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:drawableRight="@mipmap/icn_goto_big"
             android:drawablePadding="@dimen/widget_size_10"
+            android:drawableRight="@mipmap/icn_goto_big"
             android:ellipsize="middle"
             android:gravity="center_vertical|right"
             android:paddingRight="10dp"
@@ -143,10 +143,12 @@
             android:textColor="@color/black" />
 
         <TextView
+            android:id="@+id/file_size_tv"
             android:layout_width="fill_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:drawablePadding="@dimen/widget_size_10"
             android:drawableRight="@mipmap/icn_goto_big"
             android:ellipsize="middle"
             android:gravity="center_vertical|right"
@@ -154,7 +156,7 @@
             android:singleLine="true"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/black" />
+            android:textColor="@color/disable_text" />
 
     </RelativeLayout>
 

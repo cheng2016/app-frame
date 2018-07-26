@@ -34,6 +34,8 @@ public class Logger {
 
     private static String logFilePath;
 
+    private static  String logFoldPath;
+
     private static DateFormat FILE_NAME_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     private static DateFormat LOG_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -262,11 +264,11 @@ public class Logger {
         if (!Logger.isWriter) {//不保存日志到文件
             return;
         }
-        String logFoldPath;
+
         if (isSDCardOK()) {
             logFoldPath = Environment.getExternalStorageDirectory() + "/wecare/v4/logger/";
         } else {
-            logFoldPath = appCtx.getExternalCacheDir().getAbsolutePath() + "/../v4/logger/log";
+            logFoldPath = appCtx.getCacheDir().getAbsolutePath() + "/wecare/v4/logger/";
         }
         pkgName = appCtx.getPackageName();
         myPid = Process.myPid();
@@ -300,6 +302,13 @@ public class Logger {
             FileWriter fileWriter = null;
             File logFile = new File(logFilePath);
             try {
+                if(!logFile.exists()){
+                    File logFold = new File(logFoldPath);
+                    if(!logFold.exists()){
+                        logFold.mkdirs();
+                    }
+                    logFile.createNewFile();
+                }
                 fileWriter = new FileWriter(logFile, true);
                 fileWriter.write(System.getProperty("line.separator"));
                 fileWriter.append(content);

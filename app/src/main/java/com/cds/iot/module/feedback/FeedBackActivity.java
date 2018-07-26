@@ -1,39 +1,27 @@
 package com.cds.iot.module.feedback;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cds.iot.R;
 import com.cds.iot.base.BaseActivity;
 import com.cds.iot.util.Logger;
-import com.cds.iot.util.ToastUtils;
 import com.cds.iot.view.ActionSheetDialog;
-import com.cds.iot.view.ActionSheetDialog.*;
-import com.squareup.picasso.Picasso;
+import com.cds.iot.view.ActionSheetDialog.OnSheetItemClickListener;
+import com.cds.iot.view.ActionSheetDialog.SheetItemColor;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class FeedBackActivity extends BaseActivity implements View.OnClickListener {
 

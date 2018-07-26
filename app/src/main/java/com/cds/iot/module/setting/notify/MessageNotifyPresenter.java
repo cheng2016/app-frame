@@ -1,21 +1,21 @@
-package com.cds.iot.module.device.add;
+package com.cds.iot.module.setting.notify;
 
 import com.cds.iot.data.source.remote.HttpApi;
 import com.cds.iot.data.source.remote.HttpFactory;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class AddDevicePresenter implements AddDeviceContract.Presenter {
-    public final static String TAG = "AddDevicePresenter";
-    private AddDeviceContract.View view;
+public class MessageNotifyPresenter implements MessageNotifyContract.Presenter{
+    public final static String TAG = "MessageNotifyPresenter";
+    private MessageNotifyContract.View view;
     private HttpApi mHttpApi;
     private CompositeDisposable mCompositeDisposable;
 
-    public AddDevicePresenter(AddDeviceContract.View view) {
+    public MessageNotifyPresenter(MessageNotifyContract.View view) {
         this.view = view;
         view.setPresenter(this);
         mCompositeDisposable = new CompositeDisposable();
-        mHttpApi = HttpFactory.createRetrofit2(HttpApi.class);
+        mHttpApi =  HttpFactory.createRetrofit2(HttpApi.class);
     }
 
     @Override

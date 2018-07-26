@@ -6,7 +6,7 @@ import com.cds.iot.data.source.remote.HttpFactory;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class BindPresenter implements BindContract.Presenter {
-    public final static String TAG = "DevicePresenter";
+    public final static String TAG = "BindPresenter";
     private BindContract.View view;
     private HttpApi mHttpApi;
     private CompositeDisposable mCompositeDisposable;

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.cds.iot.App;
 import com.cds.iot.R;
 import com.cds.iot.base.BaseActivity;
 import com.cds.iot.module.forget.ForgetActivity;
@@ -13,11 +14,13 @@ import com.cds.iot.module.setting.notify.MessageNotifyActivity;
 import com.cds.iot.module.setting.update.UpdateActivity;
 import com.cds.iot.util.AppManager;
 import com.cds.iot.util.AppUtils;
+import com.cds.iot.util.FileUtils;
 import com.cds.iot.view.CustomDialog;
 
 public class SettingActivity extends BaseActivity implements View.OnClickListener {
 
     TextView versionNameTv;
+    TextView fileSizeTv;
 
     @Override
     protected int getLayoutId() {
@@ -34,25 +37,25 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         findViewById(R.id.message_notify_layout).setOnClickListener(this);
         findViewById(R.id.clean_cache_layout).setOnClickListener(this);
         versionNameTv = (TextView) findViewById(R.id.version_name_tv);
-
+        fileSizeTv = (TextView) findViewById(R.id.file_size_tv);
     }
 
     @Override
     protected void initData() {
-        versionNameTv.setText(AppUtils.getVersionName(this));
         ((TextView) findViewById(R.id.title)).setText("设置");
+        versionNameTv.setText(AppUtils.getVersionName(this));
+        fileSizeTv.setText(FileUtils.getAutoFileOrFilesSize(App.getInstance().getAppCacheDir()));
     }
 
     @Override
     public void onClick(View view) {
         Intent intent;
-        CustomDialog customDialog;
         switch (view.getId()) {
             case R.id.back_button:
                 finish();
                 break;
             case R.id.logout_layout:
-                customDialog = new CustomDialog(this)
+                new CustomDialog(this)
                         .setMessage("确认退出该账号？")
                         .setPositiveButton("确定", new View.OnClickListener() {
                             @Override
@@ -82,12 +85,13 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 startActivity(intent);
                 break;
             case R.id.clean_cache_layout:
-                customDialog = new CustomDialog(this)
+                new CustomDialog(this)
                         .setMessage("确定要清空缓存？")
                         .setPositiveButton("确定", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
+                                FileUtils.deleteDir(App.getInstance().getAppCacheDir());
+                                fileSizeTv.setText(FileUtils.getAutoFileOrFilesSize(App.getInstance().getAppCacheDir()));
                             }
                         })
                         .setCancelButton("取消", new View.OnClickListener() {

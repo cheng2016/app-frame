@@ -48,10 +48,10 @@ public abstract class BaseActivity extends AppCompatActivity{
         Intent intent = new Intent(this, BindService.class);
         intent.putExtra("from", TAG);
         bindService(intent,mServiceConnection,BIND_AUTO_CREATE);
-        initView(savedInstanceState);
-        initData();
         AppManager.getInstance().addActivity(this);
         changeStatusBarTextColor(true);
+        initView(savedInstanceState);
+        initData();
     }
 
     /**
