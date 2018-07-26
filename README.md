@@ -3,6 +3,22 @@
 
 
 
+## Fuction
+
+- 权限检查功能
+- Retrofit + Rxjava  + Mvp 实践
+- 支持 Https
+- 微信第三方登录
+- 自定义对话框
+- 清空缓存功能
+- 时间选择控件
+- 仿qq自定义弹出框
+- 拍照、相册功能
+- 文件日志系统
+- 各种工具类
+
+
+
 ## Review
 
 ![](./screenshot/Screenshot_1532159251.png)      ![](./screenshot/Screenshot_1532159338.png)
