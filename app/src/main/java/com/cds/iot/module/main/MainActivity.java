@@ -25,8 +25,6 @@ public class MainActivity extends BaseActivity {
 
     public static final int DEFAULT_INDEX = 1;
 
-    private Fragment[] fragments = new Fragment[3];
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -34,29 +32,55 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        viewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), fragments));
+        viewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager()));
+        viewPager.setOffscreenPageLimit(3);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
             public void onPageSelected(int position) {
-                radioGroup.check(position + 1);
+//                radioGroup.check(position + 1);
+                switch (position){
+                    case 0:
+                        radioGroup.check(R.id.device);
+                        break;
+                    case 1:
+                        radioGroup.check(R.id.message);
+                        break;
+                    case 2:
+                        radioGroup.check(R.id.me);
+                        break;
+                    default:
+                        break;
+                }
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
-        radioGroup.check(DEFAULT_INDEX);
+        radioGroup.check(R.id.device);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                Logger.i(TAG,"onCheckedChanged：" + i);
-                viewPager.setCurrentItem(i - 1);
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                Logger.i(TAG,"onCheckedChanged：" + checkedId);
+//                viewPager.setCurrentItem(checkedId - 1);
+                switch (checkedId){
+                    case R.id.device: //微信
+                        checkedId = 0;
+                        break;
+                    case R.id.message: //通讯录
+                        checkedId = 1;
+                        break;
+                    case R.id.me: //发现
+                        checkedId = 2;
+                        break;
+                    default:
+                        break;
+                }
+                viewPager.setCurrentItem(checkedId);
             }
         });
 

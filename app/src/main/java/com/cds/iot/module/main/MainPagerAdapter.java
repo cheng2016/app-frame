@@ -10,23 +10,31 @@ import com.cds.iot.module.user.UserFragment;
 
 public class MainPagerAdapter extends FragmentPagerAdapter {
 
-    private Fragment[] mFragments;
+    private Fragment[] mFragments = new Fragment[3];
 
 
-    public MainPagerAdapter(FragmentManager fm, Fragment[] mFragments) {
+    public MainPagerAdapter(FragmentManager fm) {
         super(fm);
-        this.mFragments = mFragments;
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return DeviceFragment.newInstance();
+                if(mFragments[0] == null){
+                    mFragments[0] = DeviceFragment.newInstance();
+                }
+                return mFragments[0];
             case 1:
-                return MessageFragment.newInstance();
+                if(mFragments[1] == null){
+                    mFragments[1] = MessageFragment.newInstance();
+                }
+                return mFragments[1];
             case 2:
-                return UserFragment.newInstance();
+                if(mFragments[2] == null){
+                    mFragments[2] = UserFragment.newInstance();
+                }
+                return mFragments[2];
             default:
                 return null;
         }

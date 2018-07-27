@@ -16,11 +16,12 @@ import butterknife.ButterKnife;
  */
 
 public abstract class BaseFragment extends Fragment{
-    public static final String TAG = "";
+    public String TAG = "";
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        TAG = this.getClass().getSimpleName();
         View view = inflater.inflate(getLayoutId(),container,false);
         ButterKnife.bind(this, view);
         Logger.d(TAG,"onCreateView");
