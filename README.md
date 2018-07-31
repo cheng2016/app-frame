@@ -24,7 +24,7 @@
 
 ## Review
 
-![](./screenshot/Screenshot_1532159251.png)      ![](./screenshot/Screenshot_1532159338.png)		![](./screenshot/Screenshot_1532509193.png)
+![](./screenshot/Screenshot_1532159251.png)      ![](./screenshot/Screenshot_1532159338.png)		
 
 ![](./screenshot/Screenshot_1532159219.png)      ![](./screenshot/Screenshot_1532158999.png)
 
@@ -38,7 +38,7 @@
 
 ![](./screenshot/Screenshot_1532159020.png)		 ![](./screenshot/Screenshot_1532685305.png)
 
-
+![](./screenshot/Screenshot_1532509193.png)
 
 
 
