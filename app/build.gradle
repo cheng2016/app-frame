@@ -77,7 +77,7 @@ dependencies {
     //butterknife
     compile 'com.jakewharton:butterknife:7.0.1'
     //RxTools
-    compile 'com.github.vondear:RxTools:v1.7.6.8'
+//    compile 'com.github.vondear:RxTools:v1.7.6.8'
     //eventbus
     compile 'org.greenrobot:eventbus:3.1.1'
     //UI圆角图库
@@ -102,4 +102,7 @@ dependencies {
 
     //微信包
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.1.6'
+
+//    compile 'cn.bingoogolapple:bga-qrcode-zbar:1.2.5'
+    compile 'cn.bingoogolapple:bga-qrcode-zxing:1.2.5'
 }

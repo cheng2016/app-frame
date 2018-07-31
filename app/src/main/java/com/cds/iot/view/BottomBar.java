@@ -1,7 +1,6 @@
 package com.cds.iot.view;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -19,11 +18,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-
-import com.cds.iot.R;
-import com.cds.iot.module.device.DeviceFragment;
-import com.cds.iot.module.message.MessageFragment;
-import com.cds.iot.module.user.UserFragment;
 
 import java.util.ArrayList;
 import java.util.List;

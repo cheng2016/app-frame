@@ -37,20 +37,33 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
+    <FrameLayout
         android:id="@+id/right_button"
-        android:layout_alignParentRight="true"
         android:layout_width="@dimen/widget_size_48"
         android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:visibility="invisible">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/right_top_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="@dimen/widget_size_8"
+            android:layout_gravity="center"
+            android:visibility="visible"
             app:srcCompat="@mipmap/btn_filter" />
 
-    </RelativeLayout>
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/right_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="相册"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:visibility="gone"
+            android:textSize="@dimen/font_size_16" />
+
+    </FrameLayout>
 </RelativeLayout>

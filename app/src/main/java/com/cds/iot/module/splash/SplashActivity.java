@@ -18,15 +18,14 @@ import com.cds.iot.base.BaseActivity;
 import com.cds.iot.module.login.LoginActivity;
 import com.cds.iot.util.Logger;
 import com.cds.iot.util.ToastUtils;
-import com.vondear.rxtools.RxBarTool;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SplashActivity extends BaseActivity{
-    public final static String TAG = "SplashActivity";
+//import com.vondear.rxtools.RxBarTool;
 
+public class SplashActivity extends BaseActivity{
     private Handler handler = new Handler();
 
     /**
@@ -37,7 +36,9 @@ public class SplashActivity extends BaseActivity{
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.READ_PHONE_STATE
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.CAMERA,
+            Manifest.permission.VIBRATE
     };
 
     private static final int PERMISSON_REQUESTCODE = 0;
@@ -200,7 +201,7 @@ public class SplashActivity extends BaseActivity{
 
     @Override
     protected int getLayoutId() {
-        RxBarTool.hideStatusBar(this);//隐藏状态栏 并 全屏
+//        RxBarTool.hideStatusBar(this);//隐藏状态栏 并 全屏
         return R.layout.activity_splash;
     }
 

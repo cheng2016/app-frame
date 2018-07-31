@@ -40,7 +40,7 @@ public class App extends BaseApplication{
         //初始化工具类
         Utils.init(this);
         Logger.initialize(this,true, Logger.Level.VERBOSE);
-        ToastUtils.isShow = false;
+        ToastUtils.isShow = true;
         initPicasoConfig();
     }
 

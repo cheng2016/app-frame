@@ -1,8 +1,6 @@
 package com.cds.iot.module.main;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.widget.RadioGroup;
 
@@ -11,11 +9,8 @@ import com.cds.iot.R;
 import com.cds.iot.base.BaseActivity;
 import com.cds.iot.util.Logger;
 
-import java.util.ArrayList;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import devlight.io.library.ntb.NavigationTabBar;
 
 public class MainActivity extends BaseActivity {
     @Bind(R.id.vp_horizontal_ntb)

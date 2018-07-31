@@ -3,6 +3,7 @@ package com.cds.iot.module.feedback;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.cds.iot.R;
 import com.cds.iot.base.BaseActivity;
+import com.cds.iot.util.ImageUtils;
 import com.cds.iot.util.Logger;
 import com.cds.iot.view.ActionSheetDialog;
 import com.cds.iot.view.ActionSheetDialog.OnSheetItemClickListener;
@@ -74,7 +76,7 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
         // 指定开启系统相机的Action
         intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.addCategory(Intent.CATEGORY_DEFAULT);
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, PHOTO_REQUEST_CAMERA);
     }
 
     // 指定相机拍摄照片保存地址
@@ -108,7 +110,10 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
             feedbackImg.setImageURI(data.getData());
 //            Picasso.with(this).load(data.getData()).into(feedbackImg);
         }else if(requestCode == PHOTO_REQUEST_GALLERY){
-
+            Uri uri = data.getData();
+            String path = ImageUtils.getImageAbsolutePath(this, uri);
+            Bitmap bitmap = ImageUtils.getBitmp(path);
+            feedbackImg.setImageBitmap(bitmap);
         }
     }
 
@@ -120,8 +125,6 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
                 finish();
                 break;
             case R.id.feedback_img:
-//                takeDefaultPhoto();
-
                 new ActionSheetDialog(this)
                         .builder()
                         .setCancelable(true)

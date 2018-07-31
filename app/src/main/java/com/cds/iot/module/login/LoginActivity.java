@@ -1,5 +1,6 @@
 package com.cds.iot.module.login;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,7 +16,6 @@ import com.cds.iot.base.BaseActivity;
 import com.cds.iot.module.forget.ForgetActivity;
 import com.cds.iot.module.main.MainActivity;
 import com.cds.iot.module.register.RegisterActivity;
-import com.vondear.rxtools.view.dialog.RxDialogLoading;
 
 import butterknife.Bind;
 
@@ -27,7 +27,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     String email;
     String password;
-    RxDialogLoading rxDialogLoading;
+//    RxDialogLoading rxDialogLoading;
 
     @Override
     protected int getLayoutId() {
@@ -83,12 +83,23 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void login() {
-        rxDialogLoading = new RxDialogLoading(LoginActivity.this);
+        /*rxDialogLoading = new RxDialogLoading(LoginActivity.this);
         rxDialogLoading.show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 rxDialogLoading.cancel();
+                startActivity(new Intent().setClass(LoginActivity.this, MainActivity.class));
+                finish();
+            }
+        }, 2000);*/
+        final ProgressDialog  progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("加载中...");
+        progressDialog.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
                 startActivity(new Intent().setClass(LoginActivity.this, MainActivity.class));
                 finish();
             }

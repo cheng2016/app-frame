@@ -71,40 +71,46 @@
             android:background="@color/white"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/often_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/widget_size_55"
                 android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/widget_size_55"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/btn_left_common" />
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/menu_often_selector" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/widget_min_size_1"
+                    android:layout_alignParentBottom="true"
                     android:layout_marginLeft="@dimen/widget_size_5"
                     android:layout_marginRight="@dimen/widget_size_5"
-                    android:background="@color/splite_line" />
-            </LinearLayout>
+                    android:background="@color/splite_line"
+                    android:visibility="visible" />
+            </RelativeLayout>
 
 
             <ListView
-                android:id="@+id/menu_list_view"
+                android:id="@+id/menu_listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/widget_size_56"
                 android:layout_marginBottom="@dimen/widget_size_56"
-                android:visibility="invisible">
+                android:layout_marginTop="@dimen/widget_size_56"
+
+                android:divider="@null"
+                android:listSelector="@null"
+                android:visibility="visible">
 
             </ListView>
 
             <LinearLayout
-                android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:orientation="vertical">
 
                 <View
@@ -133,18 +139,34 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/widget_size_55"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/widget_size_20"
-                android:text="常用设备"
-                android:textColor="@color/update_text_color"
-                android:textSize="@dimen/widget_size_16">
+                android:layout_height="@dimen/widget_size_55">
 
-            </TextView>
+                <TextView
+                    android:id="@+id/device_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/widget_size_20"
+                    android:text="常用设备"
+                    android:textColor="@color/update_text_color"
+                    android:textSize="@dimen/widget_size_16" />
+
+                <ImageView
+                    android:id="@+id/edit_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:visibility="invisible"
+                    android:layout_marginRight="@dimen/widget_size_20"
+                    android:src="@mipmap/btn_editorstage" />
+
+            </RelativeLayout>
+
 
             <View
                 android:layout_width="match_parent"
@@ -167,15 +189,17 @@
                     android:gravity="center"
                     android:text="当前未绑定任何设备"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/text_enable_color" />
+                    android:textColor="@color/text_enable_color"
+                    android:visibility="invisible" />
 
                 <GridView
-                    android:id="@+id/device_list_view"
+                    android:id="@+id/device_gridview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:numColumns="2">
-
-                </GridView>
+                    android:layout_margin="@dimen/widget_size_8"
+                    android:horizontalSpacing="@dimen/widget_size_8"
+                    android:numColumns="2"
+                    android:verticalSpacing="@dimen/widget_size_8"></GridView>
             </FrameLayout>
         </LinearLayout>
     </LinearLayout>

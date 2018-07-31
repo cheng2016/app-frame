@@ -23,7 +23,8 @@ public interface HttpApi {
      * @param year year
      * @param month month
      * @param day day
-     * @return Observable<GankDaily>
+     * @return Observable<
+      * >
      */
     @GET("day/{year}/{month}/{day}")
     Observable<GankDaily> getDaily(

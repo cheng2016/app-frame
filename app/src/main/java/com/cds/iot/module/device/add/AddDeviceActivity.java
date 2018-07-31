@@ -1,11 +1,13 @@
 package com.cds.iot.module.device.add;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.cds.iot.R;
 import com.cds.iot.base.BaseActivity;
+import com.cds.iot.module.zxing.ZxingScanActivity;
 
 public class AddDeviceActivity extends BaseActivity implements View.OnClickListener {
     @Override
@@ -17,12 +19,12 @@ public class AddDeviceActivity extends BaseActivity implements View.OnClickListe
     protected void initView(Bundle savedInstanceState) {
         findViewById(R.id.back_button).setVisibility(View.VISIBLE);
         findViewById(R.id.back_button).setOnClickListener(this);
-
+        findViewById(R.id.scan_img).setOnClickListener(this);
     }
 
     @Override
     protected void initData() {
-        ((TextView)findViewById(R.id.title)).setText("添加设备");
+        ((TextView) findViewById(R.id.title)).setText("添加设备");
     }
 
     @Override
@@ -30,6 +32,12 @@ public class AddDeviceActivity extends BaseActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.back_button:
                 finish();
+                break;
+            case R.id.scan_img:
+                Intent intent = new Intent().setClass(this, ZxingScanActivity.class);
+                startActivity(intent);
+                break;
+            default:
                 break;
         }
     }

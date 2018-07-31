@@ -42,7 +42,7 @@ public class CustomDialog extends Dialog {
 
     private CustomDialog initView(Context context) {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setBackgroundDrawableResource(R.drawable.transparent_bg);
+        this.getWindow().setBackgroundDrawableResource(R.mipmap.transparent_bg);
         mContext = context;
         Window window = this.getWindow();
         mLayoutParams = window.getAttributes();

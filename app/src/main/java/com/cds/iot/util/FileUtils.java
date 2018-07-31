@@ -1,6 +1,5 @@
 package com.cds.iot.util;
 
-import android.content.Context;
 import android.text.format.Formatter;
 
 import com.cds.iot.App;
