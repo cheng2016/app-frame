@@ -35,7 +35,7 @@ public class HttpFactory {
         Retrofit retrofit = new Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(HttpApi.yt_url)
+                .baseUrl(HttpApi.base_url)
                 .client(getOkClient())
                 .build();
         return retrofit.create(service);

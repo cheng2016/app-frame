@@ -2,9 +2,7 @@ package com.cds.iot.module.device;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -16,9 +14,9 @@ import com.cds.iot.base.BaseFragment;
 import com.cds.iot.module.device.adapter.DeviceAdapter;
 import com.cds.iot.module.device.adapter.MenuAdapter;
 import com.cds.iot.module.device.add.AddDeviceActivity;
+import com.cds.iot.module.scenes.ScenesActivity;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 public class DeviceFragment extends BaseFragment implements DeviceContract.View, View.OnClickListener {
     @Bind(R.id.menu_listview)
@@ -48,6 +46,8 @@ public class DeviceFragment extends BaseFragment implements DeviceContract.View,
         return mainFragment;
     }
 
+
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_device;
@@ -57,6 +57,7 @@ public class DeviceFragment extends BaseFragment implements DeviceContract.View,
     protected void initView(View view, Bundle savedInstanceState) {
         view.findViewById(R.id.add_img).setOnClickListener(this);
         view.findViewById(R.id.often_layout).setOnClickListener(this);
+        view.findViewById(R.id.edit_img).setOnClickListener(this);
         oftenView = view.findViewById(R.id.often_layout);
         oftenView.setSelected(true);
 
@@ -109,6 +110,10 @@ public class DeviceFragment extends BaseFragment implements DeviceContract.View,
                 if (lastView != null) {
                     lastView.setSelected(false);
                 }
+                break;
+            case R.id.edit_img:
+                intent = new Intent().setClass(getActivity(), ScenesActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;
