@@ -10,6 +10,11 @@ public class LoginReq {
     private String phone_number;
     private String login_pwd;
 
+    public LoginReq(String phone_number, String login_pwd) {
+        this.phone_number = phone_number;
+        this.login_pwd = login_pwd;
+    }
+
     public String getPhone_number() {
         return phone_number;
     }

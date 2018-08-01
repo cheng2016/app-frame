@@ -2,7 +2,6 @@ package com.cds.iot.module.login;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.drawable.Animatable;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
@@ -26,7 +24,7 @@ import com.cds.iot.module.register.RegisterActivity;
 
 import butterknife.Bind;
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity implements LoginContract.View, View.OnClickListener {
     @Bind(R.id.acount)
     AppCompatEditText acountView;
     @Bind(R.id.password)
@@ -58,12 +56,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     protected void initData() {
         AnimationSet animationSet = new AnimationSet(true);
 
-        AlphaAnimation inalphaAnimation = new AlphaAnimation(0.8f,1);
+        AlphaAnimation inalphaAnimation = new AlphaAnimation(0.8f, 1);
         inalphaAnimation.setDuration(1200);
         inalphaAnimation.setRepeatCount(Animation.INFINITE);
         inalphaAnimation.setRepeatMode(Animation.REVERSE);
 
-        AlphaAnimation outalphaAnimation = new AlphaAnimation(1,0.7f);
+        AlphaAnimation outalphaAnimation = new AlphaAnimation(1, 0.7f);
         outalphaAnimation.setDuration(600);
         outalphaAnimation.setRepeatCount(Animation.INFINITE);
         outalphaAnimation.setRepeatMode(Animation.REVERSE);
@@ -74,7 +72,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         bgImg.setAnimation(inalphaAnimation);
 
         bgImg.setImageResource(R.drawable.frame_login_bg_anim);
-        animationDrawable = (AnimationDrawable)  bgImg.getDrawable();
+        animationDrawable = (AnimationDrawable) bgImg.getDrawable();
         animationDrawable.start();
 
 //        ((Animatable)bgImg.getDrawable()).start();
@@ -144,5 +142,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     protected void onDestroy() {
         super.onDestroy();
         animationDrawable.stop();
+    }
+
+    @Override
+    public void loginSuccess() {
+
+    }
+
+    @Override
+    public void setPresenter(LoginContract.Presenter presenter) {
+
     }
 }

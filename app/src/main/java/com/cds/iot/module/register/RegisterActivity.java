@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.cds.iot.R;
 import com.cds.iot.base.BaseActivity;
 
-public class RegisterActivity extends BaseActivity implements View.OnClickListener {
+public class RegisterActivity extends BaseActivity implements RegisterContact.View, View.OnClickListener {
     @Override
     protected int getLayoutId() {
         return R.layout.activity_register;
@@ -32,5 +32,15 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void registerSuccess() {
+
+    }
+
+    @Override
+    public void setPresenter(RegisterContact.Presenter presenter) {
+
     }
 }

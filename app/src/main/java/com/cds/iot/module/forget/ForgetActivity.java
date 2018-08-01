@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.cds.iot.R;
 import com.cds.iot.base.BaseActivity;
 
-public class ForgetActivity extends BaseActivity implements View.OnClickListener {
+public class ForgetActivity extends BaseActivity implements ForgetContract.View,View.OnClickListener {
 
     @Override
     protected int getLayoutId() {
@@ -33,5 +33,15 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void resetPasswordSuccess() {
+
+    }
+
+    @Override
+    public void setPresenter(ForgetContract.Presenter presenter) {
+
     }
 }

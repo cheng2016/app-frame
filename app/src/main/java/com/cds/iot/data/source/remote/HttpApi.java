@@ -6,6 +6,7 @@ import com.cds.iot.data.entity.NewsList;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -32,7 +33,7 @@ public interface HttpApi {
     Observable<BaseResp> register(@Query("content") String json);
 
     @POST("user/login")
-    Observable<BaseResp> login(@Query("content") String json, @Query("custom_token") String token);
+    Observable<BaseResp> login(@Query("content") String json, @Header("custom_token") String token);
 
     @POST("user/thridlogin")
     Observable<BaseResp> thridlogin(@Query("content") String json);

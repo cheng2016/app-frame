@@ -2,6 +2,10 @@ package com.cds.iot.data.entity;
 
 public class BaseReq<T> {
 
+    public BaseReq(T content) {
+        this.content = content;
+    }
+
     /**
      * content : {"user_id":"用户id"}
      */
