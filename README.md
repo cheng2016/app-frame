@@ -61,7 +61,21 @@ cp local.properties.example local.properties
 
 ## 截图
 
-将运行截图放到 `screenshot/` 后在此引用。
+![](./screenshot/Screenshot_1532159251.png)      ![](./screenshot/Screenshot_1532159338.png)
+
+![](./screenshot/Screenshot_1533802031.png)      ![](./screenshot/Screenshot_1532158999.png)
+
+![](./screenshot/Screenshot_1532509204.png)      ![](./screenshot/Screenshot_1533004853.png)
+
+![](./screenshot/Screenshot_1532509187.png) 	 ![](./screenshot/Screenshot_1532159008.png)
+
+![](./screenshot/Screenshot_1532159001.png)      ![](./screenshot/Screenshot_1532159006.png)
+
+![](./screenshot/Screenshot_1532159014.png)		 ![](./screenshot/Screenshot_1532159290.png)
+
+![](./screenshot/Screenshot_1532159020.png)		 ![](./screenshot/Screenshot_1532685305.png)
+
+![](./screenshot/Screenshot_1532509193.png)
 
 ## License
 

@@ -12,6 +12,7 @@
 *.aab
 *.jks
 *.keystore
+!app/wecare.jks
 *.hprof
 .kotlin/
 .jdk17/
