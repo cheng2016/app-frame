@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_scenes"
+        android:title="@string/scenes"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_scan"
+        android:title="@string/scan_qr"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_add"
+        android:title="@string/add_device"
+        app:showAsAction="ifRoom" />
+</menu>

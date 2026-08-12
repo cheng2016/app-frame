@@ -1,0 +1,15 @@
+## Copy to local.properties (do not commit secrets)
+
+sdk.dir=D\:\\Android\\Sdk
+
+# Optional release signing
+# STORE_FILE=path/to/keystore.jks
+# STORE_PASSWORD=
+# KEY_ALIAS=
+# KEY_PASSWORD=
+
+# Optional WeChat OpenSDK app id (never put AppSecret here)
+# WX_APP_ID=
+
+# Demo mode default (true = offline showcase)
+DEMO_MODE=true

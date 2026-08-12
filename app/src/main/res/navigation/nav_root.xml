@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_root"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.cds.iot.feature.splash.SplashFragment"
+        android:label="Splash">
+        <action
+            android:id="@+id/action_splash_to_login"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splash_to_main"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.cds.iot.feature.auth.LoginFragment"
+        android:label="@string/login">
+        <action
+            android:id="@+id/action_login_to_register"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_login_to_forget"
+            app:destination="@id/forgetFragment" />
+        <action
+            android:id="@+id/action_login_to_main"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.cds.iot.feature.auth.RegisterFragment"
+        android:label="@string/register">
+        <action
+            android:id="@+id/action_register_to_main"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/forgetFragment"
+        android:name="com.cds.iot.feature.auth.ForgetFragment"
+        android:label="@string/forget_password" />
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.cds.iot.feature.main.MainFragment"
+        android:label="@string/app_name">
+        <action
+            android:id="@+id/action_main_to_login"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/nav_root"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_main_to_add_device"
+            app:destination="@id/addDeviceFragment" />
+        <action
+            android:id="@+id/action_main_to_scenes"
+            app:destination="@id/scenesFragment" />
+        <action
+            android:id="@+id/action_main_to_scan"
+            app:destination="@id/scanFragment" />
+        <action
+            android:id="@+id/action_main_to_setting"
+            app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_main_to_user_detail"
+            app:destination="@id/userDetailFragment" />
+        <action
+            android:id="@+id/action_main_to_feedback"
+            app:destination="@id/feedbackFragment" />
+        <action
+            android:id="@+id/action_main_to_about"
+            app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_main_to_change_phone"
+            app:destination="@id/changePhoneFragment" />
+        <action
+            android:id="@+id/action_main_to_notify"
+            app:destination="@id/notifyFragment" />
+        <action
+            android:id="@+id/action_main_to_update"
+            app:destination="@id/updateFragment" />
+        <action
+            android:id="@+id/action_main_to_wx_public"
+            app:destination="@id/wxPublicFragment" />
+        <action
+            android:id="@+id/action_main_to_product"
+            app:destination="@id/productFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addDeviceFragment"
+        android:name="com.cds.iot.feature.device.AddDeviceFragment"
+        android:label="@string/add_device" />
+    <fragment
+        android:id="@+id/scenesFragment"
+        android:name="com.cds.iot.feature.scene.ScenesFragment"
+        android:label="@string/scenes" />
+    <fragment
+        android:id="@+id/scanFragment"
+        android:name="com.cds.iot.feature.device.ScanFragment"
+        android:label="@string/scan_qr" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.cds.iot.feature.setting.SettingFragment"
+        android:label="@string/setting" />
+    <fragment
+        android:id="@+id/userDetailFragment"
+        android:name="com.cds.iot.feature.user.UserDetailFragment"
+        android:label="@string/user_detail" />
+    <fragment
+        android:id="@+id/feedbackFragment"
+        android:name="com.cds.iot.feature.user.FeedbackFragment"
+        android:label="@string/feedback" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.cds.iot.feature.user.AboutFragment"
+        android:label="@string/about" />
+    <fragment
+        android:id="@+id/changePhoneFragment"
+        android:name="com.cds.iot.feature.user.ChangePhoneFragment"
+        android:label="@string/change_phone" />
+    <fragment
+        android:id="@+id/notifyFragment"
+        android:name="com.cds.iot.feature.setting.NotifyFragment"
+        android:label="@string/message_notify" />
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.cds.iot.feature.setting.UpdateFragment"
+        android:label="@string/check_update" />
+    <fragment
+        android:id="@+id/wxPublicFragment"
+        android:name="com.cds.iot.feature.user.WxPublicFragment"
+        android:label="@string/wx_public" />
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.cds.iot.feature.user.ProductFragment"
+        android:label="@string/product_desc" />
+</navigation>

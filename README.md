@@ -1,67 +1,68 @@
-# app-frame
-一个App框架。
+# 酷达物联 (app-frame)
 
+面向智能家居/IoT 场景的 **Android 业务 Demo**，展示账号、设备、场景、消息与设置等完整主路径。  
+本仓库已从 2017 Java MVP 重构为 **Kotlin + MVVM + Material 3** 现代化架构，默认可在无后端环境下用 DemoMode 跑通。
 
+## 功能
 
-## Fuction
+- 登录 / 注册 / 找回密码
+- 微信第三方登录入口（仅 `SendAuth`，**不下发 AppSecret**）
+- 设备列表、添加设备、扫码添加、智能场景
+- 消息中心
+- 个人资料、换绑手机、反馈、关于、产品说明、公众号页
+- 设置：Demo 模式开关、通知、检查更新、清缓存、退出登录
 
-- 权限检查功能
-- Retrofit + Rxjava  + Mvp 实践
-- 支持 Https
-- 微信第三方登录
-- 使用 RadioGroup + viewPager 底部导航栏
-- 自定义对话框
-- 清空缓存功能
-- 时间选择控件
-- 仿qq自定义弹出框
-- 拍照、相册功能
-- 二维码扫描功能
-- 使用模板、单例模式
-- 文件日志系统
-- 各种工具类
+## 架构
 
+```
+app/      UI + Navigation（单 Activity）
+domain/   领域模型
+data/     ApiService / Repository / DataStore / DemoDataSource
+core/     AppResult、工具
+```
 
+- UI: AndroidX · Material 3 · ViewBinding · Navigation · BottomNavigation
+- 异步: Coroutines + Flow
+- DI: Hilt
+- 网络: Retrofit 2 + OkHttp 4（保持旧契约：`content` JSON + `custom_token`）
 
-## Review
+## DemoMode
 
-![](./screenshot/Screenshot_1532159251.png)      ![](./screenshot/Screenshot_1532159338.png)		
+Debug 默认开启 DemoMode（`local.properties` 中 `DEMO_MODE=true`，设置页可切换）。
 
-![](./screenshot/Screenshot_1533802031.png)      ![](./screenshot/Screenshot_1532158999.png)
+- **开**：本地假数据，无需 `sit.wecarelove.com`
+- **关**：走真实 `ApiService`，请求形态与旧版 HttpApi 对齐
 
-![](./screenshot/Screenshot_1532509204.png)      ![](./screenshot/Screenshot_1533004853.png)
+## 构建
 
-![](./screenshot/Screenshot_1532509187.png) 	 ![](./screenshot/Screenshot_1532159008.png)
+要求：
 
-![](./screenshot/Screenshot_1532159001.png)      ![](./screenshot/Screenshot_1532159006.png)
+- JDK 17
+- Android Studio Ladybug+ / AGP 8.7
+- Android SDK 35
 
-![](./screenshot/Screenshot_1532159014.png)		 ![](./screenshot/Screenshot_1532159290.png)
+```bash
+# Windows
+copy local.properties.example local.properties
+# 编辑 sdk.dir=...
 
-![](./screenshot/Screenshot_1532159020.png)		 ![](./screenshot/Screenshot_1532685305.png)
+gradlew.bat assembleDebug
+```
 
-![](./screenshot/Screenshot_1532509193.png)
+```bash
+# macOS / Linux
+cp local.properties.example local.properties
+# 编辑 sdk.dir=...
 
+./gradlew assembleDebug
+```
 
+可选签名与微信 AppId 见 `local.properties.example`。
 
-### Contact Me
+## 截图
 
-- Github: github.com/cheng2016
-- Email: mitnick.cheng@outlook.com
-- QQ: 1102743539
+将运行截图放到 `screenshot/` 后在此引用。
 
+## License
 
-# License
-
-    Copyright 2016 cheng2016,Inc.
-    
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-    
-        http://www.apache.org/licenses/LICENSE-2.0
-    
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
+Apache License 2.0 — 见 [LICENSE](LICENSE)

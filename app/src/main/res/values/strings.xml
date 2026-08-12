@@ -1,50 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">酷达物联</string>
-
-
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-
     <string name="device">设备</string>
     <string name="message">消息</string>
     <string name="my">我的</string>
-
+    <string name="login">登录</string>
     <string name="register">注册</string>
-    <string name="modify_password">修改密码</string>
-    <string name="forget_password">忘记密码</string>.
-
+    <string name="forget_password">忘记密码</string>
+    <string name="prompt_account">请输入手机号</string>
+    <string name="prompt_password">请输入密码</string>
+    <string name="prompt_code">请输入验证码</string>
+    <string name="send_code">获取验证码</string>
     <string name="login_three">第三方登录</string>
-
+    <string name="wechat_login">微信登录</string>
+    <string name="demo_mode_hint">当前为 Demo 模式，无需真实后端</string>
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+    <string name="setting">设置</string>
+    <string name="about">关于我们</string>
+    <string name="feedback">意见反馈</string>
+    <string name="logout">退出登录</string>
+    <string name="add_device">添加设备</string>
+    <string name="scenes">智能场景</string>
+    <string name="scan_qr">扫码添加</string>
+    <string name="empty_devices">暂无设备，点击右上角添加</string>
+    <string name="empty_messages">暂无消息</string>
+    <string name="empty_scenes">暂无场景</string>
+    <string name="user_detail">个人资料</string>
+    <string name="change_phone">更换手机号</string>
+    <string name="message_notify">消息通知</string>
+    <string name="check_update">检查更新</string>
+    <string name="wx_public">微信公众号</string>
+    <string name="product_desc">产品说明</string>
     <string name="about_phone">400-166-8226</string>
     <string name="about_website">www.wecarelove.com</string>
     <string name="about_name">深圳市酷达通讯有限公司</string>
-
-    <string name="confirm">确定</string>
-    <string name="cancel">取消</string>
-
-    <string name="notifyTitle">提示</string>
-    <string name="notifyMsg">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。</string>
-    <string name="setting">设置</string>
-
-    <string name="errcode_success">发送成功</string>
-    <string name="errcode_cancel">发送取消</string>
-    <string name="errcode_deny">发送被拒绝</string>
-    <string name="errcode_unsupported">不支持错误</string>
-    <string name="errcode_unknown">发送返回</string>
-
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_account">请输入账户</string>
-    <string name="prompt_password">请输入密码</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
-    <!-- END -->
+    <string name="clear_cache">清空缓存</string>
+    <string name="demo_mode">Demo 模式</string>
+    <string name="permission_rationale">需要相机与存储权限以完成扫码与图片选择</string>
 </resources>
