@@ -39,7 +39,7 @@ class AuthRepository @Inject constructor(
             val resp = api.login(json, token)
             if (!resp.isSuccess) error(resp.message)
             Session(
-                userId = resp.data?.userId ?: 0,
+                userId = resp.userId(),
                 phone = phone,
                 nickname = phone,
                 token = token,
@@ -61,7 +61,7 @@ class AuthRepository @Inject constructor(
                 val resp = api.register(json)
                 if (!resp.isSuccess) error(resp.message)
                 Session(
-                    userId = resp.data?.userId ?: 0,
+                    userId = resp.userId(),
                     phone = phone,
                     nickname = phone,
                     isLoggedIn = true,
@@ -110,7 +110,7 @@ class AuthRepository @Inject constructor(
             val resp = api.thirdLogin(json)
             if (!resp.isSuccess) error(resp.message)
             Session(
-                userId = resp.data?.userId ?: 0,
+                userId = resp.userId(),
                 nickname = nickname.ifBlank { "微信用户" },
                 avatarUrl = avatar,
                 token = openId,

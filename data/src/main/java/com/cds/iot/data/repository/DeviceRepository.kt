@@ -5,6 +5,7 @@ import com.cds.iot.data.demo.DemoDataSource
 import com.cds.iot.data.dto.DeviceReq
 import com.cds.iot.data.local.SessionDataStore
 import com.cds.iot.data.remote.ApiService
+import com.cds.iot.data.remote.PayloadParser
 import com.cds.iot.data.remote.RequestEncoder
 import com.cds.iot.domain.model.DeviceItem
 import kotlinx.coroutines.flow.first
@@ -17,6 +18,7 @@ class DeviceRepository @Inject constructor(
     private val encoder: RequestEncoder,
     private val sessionStore: SessionDataStore,
     private val demo: DemoDataSource,
+    private val parser: PayloadParser,
 ) {
     suspend fun listDevices(): AppResult<List<DeviceItem>> = runCatching {
         if (sessionStore.demoMode.first()) {
@@ -25,8 +27,7 @@ class DeviceRepository @Inject constructor(
             val userId = sessionStore.session.first().userId.toString()
             val resp = api.getDeviceInfo(encoder.encode(DeviceReq(userId)))
             if (!resp.isSuccess) error(resp.message)
-            // Remote payload shape varies; DemoMode covers offline showcase.
-            AppResult.Success(emptyList())
+            AppResult.Success(parser.parseDevices(resp.data))
         }
     }.getOrElse { AppResult.Error(it.message ?: "加载设备失败") }
 
@@ -36,10 +37,18 @@ class DeviceRepository @Inject constructor(
         } else {
             val userId = sessionStore.session.first().userId.toString()
             val resp = api.updateDeviceInfo(
-                encoder.encode(DeviceReq(userId, deviceName = name)),
+                encoder.encode(DeviceReq(userId, deviceName = name, type = type)),
             )
             if (!resp.isSuccess) error(resp.message)
-            AppResult.Success(DeviceItem("remote", name, type, true))
+            val parsed = parser.parseDevices(resp.data).firstOrNull()
+            AppResult.Success(
+                parsed ?: DeviceItem(
+                    id = resp.userId().takeIf { it > 0 }?.toString() ?: "remote-${System.currentTimeMillis()}",
+                    name = name,
+                    type = type.ifBlank { "通用设备" },
+                    online = true,
+                ),
+            )
         }
     }.getOrElse { AppResult.Error(it.message ?: "添加失败") }
 

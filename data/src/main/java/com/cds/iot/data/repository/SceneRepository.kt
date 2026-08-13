@@ -5,6 +5,7 @@ import com.cds.iot.data.demo.DemoDataSource
 import com.cds.iot.data.dto.SceneReq
 import com.cds.iot.data.local.SessionDataStore
 import com.cds.iot.data.remote.ApiService
+import com.cds.iot.data.remote.PayloadParser
 import com.cds.iot.data.remote.RequestEncoder
 import com.cds.iot.domain.model.SceneItem
 import kotlinx.coroutines.flow.first
@@ -17,6 +18,7 @@ class SceneRepository @Inject constructor(
     private val encoder: RequestEncoder,
     private val sessionStore: SessionDataStore,
     private val demo: DemoDataSource,
+    private val parser: PayloadParser,
 ) {
     suspend fun listScenes(): AppResult<List<SceneItem>> = runCatching {
         if (sessionStore.demoMode.first()) {
@@ -25,7 +27,7 @@ class SceneRepository @Inject constructor(
             val userId = sessionStore.session.first().userId.toString()
             val resp = api.getSceneInfo(encoder.encode(SceneReq(userId)))
             if (!resp.isSuccess) error(resp.message)
-            AppResult.Success(emptyList())
+            AppResult.Success(parser.parseScenes(resp.data))
         }
     }.getOrElse { AppResult.Error(it.message ?: "加载场景失败") }
 
@@ -38,7 +40,15 @@ class SceneRepository @Inject constructor(
                 encoder.encode(SceneReq(userId, sceneName = name)),
             )
             if (!resp.isSuccess) error(resp.message)
-            AppResult.Success(SceneItem("remote", name, 0, true))
+            val parsed = parser.parseScenes(resp.data).firstOrNull()
+            AppResult.Success(
+                parsed ?: SceneItem(
+                    id = "remote-${System.currentTimeMillis()}",
+                    name = name,
+                    deviceCount = 0,
+                    enabled = true,
+                ),
+            )
         }
     }.getOrElse { AppResult.Error(it.message ?: "保存失败") }
 

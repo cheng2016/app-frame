@@ -1,5 +1,6 @@
 package com.cds.iot.data.dto
 
+import com.google.gson.JsonElement
 import com.google.gson.annotations.SerializedName
 
 data class BaseReq<T>(val content: T)
@@ -9,16 +10,24 @@ data class BaseInfo(
     val info: String? = null,
 )
 
+/**
+ * Flexible envelope: `data` may be an object, array, or null depending on endpoint.
+ */
 data class BaseResp(
-    val data: DataBean? = null,
+    val data: JsonElement? = null,
     val info: BaseInfo? = null,
 ) {
-    data class DataBean(
-        @SerializedName("user_id") val userId: Int = 0,
-    )
-
     val isSuccess: Boolean get() = info?.code == "200"
     val message: String get() = info?.info.orEmpty().ifBlank { "未知错误" }
+
+    fun userId(): Int {
+        val obj = data?.takeIf { it.isJsonObject }?.asJsonObject ?: return 0
+        return sequenceOf("user_id", "userId", "id")
+            .mapNotNull { key -> obj.get(key)?.takeIf { !it.isJsonNull } }
+            .firstOrNull()
+            ?.asInt
+            ?: 0
+    }
 }
 
 data class LoginReq(
@@ -82,6 +91,7 @@ data class DeviceReq(
     @SerializedName("user_id") val userId: String,
     @SerializedName("device_id") val deviceId: String = "",
     @SerializedName("device_name") val deviceName: String = "",
+    @SerializedName("type") val type: String = "",
 )
 
 data class SceneReq(
@@ -93,4 +103,34 @@ data class SceneReq(
 data class VersionReq(
     @SerializedName("version_code") val versionCode: Int,
     @SerializedName("platform") val platform: String = "android",
+)
+
+/** Aligns with legacy ScenesDevice + common API aliases. */
+data class DeviceDto(
+    val id: String? = null,
+    @SerializedName("device_id") val deviceId: String? = null,
+    val name: String? = null,
+    @SerializedName("device_name") val deviceName: String? = null,
+    val type: String? = null,
+    @SerializedName("device_type") val deviceType: String? = null,
+    val online: Boolean? = null,
+    @SerializedName("is_online") val isOnline: Boolean? = null,
+    val status: String? = null,
+    val room: String? = null,
+    @SerializedName("room_name") val roomName: String? = null,
+    val imageurl: String? = null,
+    @SerializedName("image_url") val imageUrl: String? = null,
+)
+
+/** Aligns with legacy Scenes + common API aliases. */
+data class SceneDto(
+    val id: String? = null,
+    @SerializedName("scene_id") val sceneId: String? = null,
+    val name: String? = null,
+    @SerializedName("scene_name") val sceneName: String? = null,
+    @SerializedName("device_count") val deviceCount: Int? = null,
+    val enabled: Boolean? = null,
+    @SerializedName("is_enabled") val isEnabled: Boolean? = null,
+    val status: String? = null,
+    @SerializedName("icon_url") val iconUrl: String? = null,
 )

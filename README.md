@@ -7,7 +7,7 @@
 
 - 登录 / 注册 / 找回密码
 - 微信第三方登录入口（仅 `SendAuth`，**不下发 AppSecret**）
-- 设备列表、添加设备、扫码添加、智能场景
+- 设备列表、添加设备、**CameraX + ML Kit 扫码添加**、智能场景
 - 消息中心
 - 个人资料、换绑手机、反馈、关于、产品说明、公众号页
 - 设置：Demo 模式开关、通知、检查更新、清缓存、退出登录
@@ -31,7 +31,12 @@ core/     AppResult、工具
 Debug 默认开启 DemoMode（`local.properties` 中 `DEMO_MODE=true`，设置页可切换）。
 
 - **开**：本地假数据，无需 `sit.wecarelove.com`
-- **关**：走真实 `ApiService`，请求形态与旧版 HttpApi 对齐
+- **关**：走真实 `ApiService`，请求形态与旧版 HttpApi 对齐；设备/场景列表支持多种 `data` 形态解析（`devices` / `device_list` / `list` 数组等）
+
+## 微信登录说明
+
+客户端只发起 `SendAuth` 并拿到 `code`（`WX_APP_ID` 配在 `local.properties`）。  
+**AppSecret 不得进 APK**；应用服务端用 `code` 换 `access_token` / `openid` 后，再调后端 `user/thridlogin`。DemoMode 下用本地桩会话模拟该流程。
 
 ## 构建
 
@@ -60,6 +65,14 @@ cp local.properties.example local.properties
 可选签名与微信 AppId 见 `local.properties.example`。
 
 ## 截图
+
+### 2.0 Material 3
+
+![](./screenshot/ui_login.png)      ![](./screenshot/ui_devices.png)
+
+![](./screenshot/ui_user.png)      ![](./screenshot/ui_settings.png)
+
+### 历史界面（归档）
 
 ![](./screenshot/Screenshot_1532159251.png)      ![](./screenshot/Screenshot_1532159338.png)
 
