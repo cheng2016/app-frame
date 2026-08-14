@@ -1,7 +1,13 @@
 package com.cds.iot.feature.device
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.BaseAdapter
+import android.widget.GridView
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -9,12 +15,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.cds.iot.R
-import com.cds.iot.databinding.FragmentDeviceBinding
-import com.cds.iot.databinding.ItemDeviceBinding
 import com.cds.iot.domain.model.DeviceItem
-import com.cds.iot.ui.SimpleListAdapter
 import com.cds.iot.ui.findRootNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -22,36 +24,39 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class DeviceFragment : Fragment(R.layout.fragment_device) {
     private val viewModel: DeviceViewModel by viewModels()
+    private val devices = mutableListOf<DeviceItem>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val binding = FragmentDeviceBinding.bind(view)
-        val adapter = SimpleListAdapter(
-            inflate = ItemDeviceBinding::inflate,
-            bind = { itemBinding, item: DeviceItem ->
-                itemBinding.name.text = item.name
-                itemBinding.meta.text = "${item.type} · ${item.room}"
-                itemBinding.status.text = if (item.online) "在线" else "离线"
-                itemBinding.status.setTextColor(
-                    requireContext().getColor(
-                        if (item.online) R.color.status_online else R.color.status_offline,
-                    ),
-                )
-                itemBinding.root.setOnLongClickListener {
+        val grid = view.findViewById<GridView>(R.id.device_gridview)
+        val emptyView = view.findViewById<TextView>(R.id.empty_view)
+        val adapter = object : BaseAdapter() {
+            override fun getCount(): Int = devices.size
+            override fun getItem(position: Int): DeviceItem = devices[position]
+            override fun getItemId(position: Int): Long = position.toLong()
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val row = convertView ?: LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_device, parent, false)
+                val item = getItem(position)
+                row.findViewById<TextView>(R.id.device_name).text = item.name
+                row.findViewById<TextView>(R.id.device_status).text =
+                    if (item.online) "在线" else "离线"
+                row.setOnLongClickListener {
                     viewModel.delete(item.id)
                     true
                 }
-            },
-        )
-        binding.deviceList.layoutManager = LinearLayoutManager(requireContext())
-        binding.deviceList.adapter = adapter
-        binding.refresh.setOnRefreshListener { viewModel.refresh() }
-        binding.toolbar.setOnMenuItemClickListener { item ->
-            val rootNav = findRootNavController()
-            when (item.itemId) {
-                R.id.action_add -> rootNav.navigate(R.id.action_main_to_add_device)
-                R.id.action_scenes -> rootNav.navigate(R.id.action_main_to_scenes)
-                R.id.action_scan -> rootNav.navigate(R.id.action_main_to_scan)
+                return row
             }
+        }
+        grid.adapter = adapter
+
+        view.findViewById<ImageView>(R.id.add_img).setOnClickListener {
+            findRootNavController().navigate(R.id.action_main_to_add_device)
+        }
+        view.findViewById<View>(R.id.often_layout).setOnClickListener {
+            findRootNavController().navigate(R.id.action_main_to_scenes)
+        }
+        view.findViewById<View>(R.id.often_layout).setOnLongClickListener {
+            findRootNavController().navigate(R.id.action_main_to_scan)
             true
         }
 
@@ -59,14 +64,11 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.devices.collect {
-                        adapter.submit(it)
-                        binding.emptyView.isVisible = it.isEmpty()
-                    }
-                }
-                launch {
-                    viewModel.loading.collect {
-                        binding.progress.isVisible = it && adapter.itemCount == 0
-                        binding.refresh.isRefreshing = it && adapter.itemCount > 0
+                        devices.clear()
+                        devices.addAll(it)
+                        adapter.notifyDataSetChanged()
+                        emptyView.isVisible = it.isEmpty()
+                        grid.isVisible = it.isNotEmpty()
                     }
                 }
                 launch {

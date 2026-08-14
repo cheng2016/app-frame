@@ -3,6 +3,8 @@ package com.cds.iot.feature.auth
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,40 +14,37 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.cds.iot.BuildConfig
 import com.cds.iot.R
-import com.cds.iot.databinding.FragmentLoginBinding
 import com.tencent.mm.opensdk.modelmsg.SendAuth
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class LoginFragment : Fragment(R.layout.fragment_login) {
+class LoginFragment : Fragment(R.layout.activity_login) {
 
     private val viewModel: LoginViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentLoginBinding.bind(view)
+        val account = view.findViewById<AppCompatEditText>(R.id.acount)
+        val password = view.findViewById<AppCompatEditText>(R.id.password)
 
-        binding.loginButton.setOnClickListener {
+        view.findViewById<AppCompatButton>(R.id.email_sign_in_button).setOnClickListener {
             viewModel.login(
-                binding.phoneInput.text?.toString().orEmpty(),
-                binding.passwordInput.text?.toString().orEmpty(),
+                account.text?.toString().orEmpty(),
+                password.text?.toString().orEmpty(),
             )
         }
-        binding.registerLink.setOnClickListener {
+        view.findViewById<View>(R.id.register_btn).setOnClickListener {
             findNavController().navigate(R.id.action_login_to_register)
         }
-        binding.forgetLink.setOnClickListener {
+        view.findViewById<View>(R.id.modify_password_button).setOnClickListener {
             findNavController().navigate(R.id.action_login_to_forget)
         }
-        binding.wechatButton.setOnClickListener { startWeChatLogin() }
+        view.findViewById<View>(R.id.weixin).setOnClickListener { startWeChatLogin() }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch {
-                    viewModel.loading.collect { binding.progress.isVisible = it }
-                }
                 launch {
                     viewModel.message.collect {
                         Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
@@ -58,7 +57,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 }
                 launch {
                     viewModel.demoMode.collect { demo ->
-                        binding.demoHint.isVisible = demo
+                        // Old login UI has no dedicated demo chip; toast once via message if needed.
+                        view.findViewById<View>(R.id.bottom_title_rly).isVisible = true
+                        if (demo) {
+                            view.findViewById<View>(R.id.bottom_title_rly).alpha = 0.9f
+                        }
                     }
                 }
             }
@@ -68,7 +71,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun startWeChatLogin() {
         val appId = BuildConfig.WX_APP_ID
         if (appId.isBlank()) {
-            // No client secret / app id configured — use DemoMode WeChat path.
             viewModel.loginWithWeChatDemo()
             return
         }

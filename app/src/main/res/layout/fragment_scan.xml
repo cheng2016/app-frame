@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_theme_background"
+    android:background="@color/app_content_bg"
     android:orientation="vertical">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/md_theme_surface"
-        app:navigationIcon="?attr/homeAsUpIndicator"
-        app:title="@string/scan_qr" />
+    <include layout="@layout/action_bar" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -29,10 +22,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="@dimen/space_lg"
+            android:layout_marginBottom="@dimen/widget_size_20"
             android:background="#99000000"
-            android:paddingHorizontal="@dimen/space_md"
-            android:paddingVertical="@dimen/space_sm"
+            android:paddingLeft="@dimen/widget_size_16"
+            android:paddingTop="@dimen/widget_size_8"
+            android:paddingRight="@dimen/widget_size_16"
+            android:paddingBottom="@dimen/widget_size_8"
             android:text="将二维码放入取景框内"
             android:textColor="@android:color/white" />
     </FrameLayout>
@@ -41,25 +36,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/space_md">
+        android:padding="@dimen/widget_size_16">
 
-        <com.google.android.material.textfield.TextInputLayout
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/manualInput"
+            style="@style/inputStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="或手动输入序列号">
+            android:hint="或手动输入序列号"
+            android:inputType="text" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/manualInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.button.MaterialButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/submitButton"
+            style="@style/buttonStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_sm"
+            android:layout_marginTop="@dimen/widget_size_16"
             android:text="确认添加" />
     </LinearLayout>
 </LinearLayout>

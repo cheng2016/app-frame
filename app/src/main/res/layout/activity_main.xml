@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_content_bg"
+    android:orientation="vertical">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_horizontal_ntb"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="visible" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/widget_size_1"
+        android:background="@color/enable_color" />
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/widget_size_55"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="@dimen/widget_size_5"
+        android:visibility="visible">
+
+        <RadioButton
+            android:id="@+id/device"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:button="@null"
+            android:drawableTop="@drawable/main_device_selector"
+            android:gravity="center"
+            android:text="设备"
+            android:textColor="@drawable/radiobutton_color_selector"
+            android:textSize="@dimen/font_size_13" />
+
+        <RadioButton
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:button="@null"
+            android:drawableTop="@drawable/main_message_selector"
+            android:gravity="center"
+            android:text="消息"
+            android:textColor="@drawable/radiobutton_color_selector"
+            android:textSize="@dimen/font_size_13" />
+
+        <RadioButton
+            android:id="@+id/me"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:button="@null"
+            android:drawableTop="@drawable/main_user_selector"
+            android:gravity="center"
+            android:text="我的"
+            android:textColor="@drawable/radiobutton_color_selector"
+            android:textSize="@dimen/font_size_13" />
+    </RadioGroup>
+</LinearLayout>

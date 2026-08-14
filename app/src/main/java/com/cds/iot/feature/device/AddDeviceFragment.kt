@@ -2,8 +2,9 @@ package com.cds.iot.feature.device
 
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
-import androidx.core.view.isVisible
+import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -15,7 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.cds.iot.R
 import com.cds.iot.core.result.AppResult
 import com.cds.iot.data.repository.DeviceRepository
-import com.cds.iot.databinding.FragmentSimpleFormBinding
+import com.cds.iot.ui.setupActionBar
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -53,24 +54,23 @@ class AddDeviceViewModel @Inject constructor(
 }
 
 @AndroidEntryPoint
-class AddDeviceFragment : Fragment(R.layout.fragment_simple_form) {
+class AddDeviceFragment : Fragment(R.layout.activity_add_device) {
     private val viewModel: AddDeviceViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val binding = FragmentSimpleFormBinding.bind(view)
-        binding.toolbar.title = getString(R.string.add_device)
-        binding.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        binding.fieldOneLayout.hint = "设备名称"
-        binding.fieldTwoLayout.hint = "设备类型"
-        binding.submitButton.setOnClickListener {
-            viewModel.add(
-                binding.fieldOne.text?.toString().orEmpty(),
-                binding.fieldTwo.text?.toString().orEmpty(),
-            )
+        view.setupActionBar(getString(R.string.add_device)) { findNavController().navigateUp() }
+        val idEdit = view.findViewById<EditText>(R.id.device_id_edit)
+        val nameEdit = view.findViewById<EditText>(R.id.device_name_edit)
+        view.findViewById<View>(R.id.scan_img).setOnClickListener {
+            findNavController().navigate(R.id.scanFragment)
+        }
+        view.findViewById<AppCompatButton>(R.id.add_submit_btn).setOnClickListener {
+            val name = nameEdit.text?.toString().orEmpty()
+                .ifBlank { idEdit.text?.toString().orEmpty() }
+            viewModel.add(name, idEdit.text?.toString().orEmpty())
         }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch { viewModel.loading.collect { binding.progress.isVisible = it } }
                 launch {
                     viewModel.message.collect {
                         Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()

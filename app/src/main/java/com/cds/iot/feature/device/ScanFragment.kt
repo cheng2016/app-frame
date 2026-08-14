@@ -4,13 +4,17 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -19,7 +23,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.cds.iot.R
-import com.cds.iot.databinding.FragmentScanBinding
+import com.cds.iot.ui.setupActionBar
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
@@ -35,7 +39,9 @@ class ScanFragment : Fragment(R.layout.fragment_scan) {
     private val addViewModel: AddDeviceViewModel by viewModels()
     private val handled = AtomicBoolean(false)
     private val analysisExecutor = Executors.newSingleThreadExecutor()
-    private var bindingRef: FragmentScanBinding? = null
+    private var previewView: PreviewView? = null
+    private var manualInput: AppCompatEditText? = null
+    private var scanHint: TextView? = null
 
     private val permissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
@@ -46,11 +52,12 @@ class ScanFragment : Fragment(R.layout.fragment_scan) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val binding = FragmentScanBinding.bind(view)
-        bindingRef = binding
-        binding.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        binding.submitButton.setOnClickListener {
-            submitCode(binding.manualInput.text?.toString().orEmpty())
+        view.setupActionBar(getString(R.string.scan_qr)) { findNavController().navigateUp() }
+        previewView = view.findViewById(R.id.previewView)
+        manualInput = view.findViewById(R.id.manualInput)
+        scanHint = view.findViewById(R.id.scanHint)
+        view.findViewById<AppCompatButton>(R.id.submitButton).setOnClickListener {
+            submitCode(manualInput?.text?.toString().orEmpty())
         }
 
         when {
@@ -75,13 +82,13 @@ class ScanFragment : Fragment(R.layout.fragment_scan) {
 
     @androidx.annotation.OptIn(ExperimentalGetImage::class)
     private fun startCamera() {
-        val binding = bindingRef ?: return
+        val previewView = previewView ?: return
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
         cameraProviderFuture.addListener({
             if (!isAdded) return@addListener
             val cameraProvider = cameraProviderFuture.get()
             val preview = Preview.Builder().build().also {
-                it.surfaceProvider = binding.previewView.surfaceProvider
+                it.surfaceProvider = previewView.surfaceProvider
             }
             val options = BarcodeScannerOptions.Builder()
                 .setBarcodeFormats(
@@ -111,8 +118,8 @@ class ScanFragment : Fragment(R.layout.fragment_scan) {
                         if (!value.isNullOrBlank() && handled.compareAndSet(false, true)) {
                             view?.post {
                                 if (!isAdded) return@post
-                                binding.manualInput.setText(value)
-                                binding.scanHint.text = "已识别，正在添加…"
+                                manualInput?.setText(value)
+                                scanHint?.text = "已识别，正在添加…"
                                 submitCode(value)
                             }
                         }
@@ -144,7 +151,9 @@ class ScanFragment : Fragment(R.layout.fragment_scan) {
     }
 
     override fun onDestroyView() {
-        bindingRef = null
+        previewView = null
+        manualInput = null
+        scanHint = null
         super.onDestroyView()
     }
 

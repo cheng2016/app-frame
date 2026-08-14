@@ -2,31 +2,30 @@ package com.cds.iot.feature.setting
 
 import android.os.Bundle
 import android.view.View
+import android.widget.CheckBox
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.cds.iot.R
-import com.cds.iot.databinding.FragmentSettingBinding
+import com.cds.iot.ui.setupActionBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NotifyFragment : Fragment(R.layout.fragment_setting) {
+class NotifyFragment : Fragment(R.layout.activity_message_notify) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val binding = FragmentSettingBinding.bind(view)
-        binding.toolbar.title = getString(R.string.message_notify)
-        binding.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        binding.demoSwitch.isVisible = false
-        binding.itemNotify.text = "设备告警通知"
-        binding.itemUpdate.text = "场景执行通知"
-        binding.itemClearCache.text = "系统公告"
-        binding.itemLogout.isVisible = false
-        listOf(binding.itemNotify, binding.itemUpdate, binding.itemClearCache).forEach { row ->
-            row.setOnClickListener {
-                Toast.makeText(requireContext(), "${row.text}：已开启（Demo）", Toast.LENGTH_SHORT).show()
+        view.setupActionBar(getString(R.string.message_notify)) { findNavController().navigateUp() }
+        listOf(
+            R.id.message_switchbtn to "新消息通知",
+            R.id.voice_switchbtn to "声音",
+            R.id.vibrate_switchbtn to "震动",
+        ).forEach { (id, label) ->
+            view.findViewById<CheckBox>(id).setOnCheckedChangeListener { _, checked ->
+                Toast.makeText(
+                    requireContext(),
+                    "$label：${if (checked) "已开启" else "已关闭"}（Demo）",
+                    Toast.LENGTH_SHORT,
+                ).show()
             }
         }
-        // hide demo row container's switch row by collapsing parent — switch already hidden
-        (binding.demoSwitch.parent as? View)?.isVisible = false
     }
 }

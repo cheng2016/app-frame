@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SplashFragment : Fragment(R.layout.fragment_splash) {
+class SplashFragment : Fragment(R.layout.activity_splash) {
 
     @Inject lateinit var authRepository: AuthRepository
 

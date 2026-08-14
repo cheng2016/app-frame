@@ -1,7 +1,7 @@
 # 酷达物联 (app-frame)
 
 面向智能家居/IoT 场景的 **Android 业务 Demo**，展示账号、设备、场景、消息与设置等完整主路径。  
-本仓库已从 2017 Java MVP 重构为 **Kotlin + MVVM + Material 3** 现代化架构，默认可在无后端环境下用 DemoMode 跑通。
+本仓库已从 2017 Java MVP 重构为 **Kotlin + MVVM** 现代化架构，**界面与业务保持原酷达物联风格**，默认可在无后端环境下用 DemoMode 跑通。
 
 ## 下载
 
@@ -27,7 +27,7 @@ data/     ApiService / Repository / DataStore / DemoDataSource
 core/     AppResult、工具
 ```
 
-- UI: AndroidX · Material 3 · ViewBinding · Navigation · BottomNavigation
+- UI: AndroidX · 原版 XML 界面 · ViewBinding · Navigation · RadioGroup + ViewPager
 - 异步: Coroutines + Flow
 - DI: Hilt
 - 网络: Retrofit 2 + OkHttp 4（保持旧契约：`content` JSON + `custom_token`）
@@ -78,13 +78,7 @@ gradlew.bat assembleRelease
 
 ## 截图
 
-### 2.0 Material 3
-
-![](./screenshot/ui_login.png)      ![](./screenshot/ui_devices.png)
-
-![](./screenshot/ui_user.png)      ![](./screenshot/ui_settings.png)
-
-### 历史界面（归档）
+### 原版界面
 
 ![](./screenshot/Screenshot_1532159251.png)      ![](./screenshot/Screenshot_1532159338.png)
 
@@ -101,6 +95,12 @@ gradlew.bat assembleRelease
 ![](./screenshot/Screenshot_1532159020.png)		 ![](./screenshot/Screenshot_1532685305.png)
 
 ![](./screenshot/Screenshot_1532509193.png)
+
+### 架构现代化期间的 Material 3 稿（归档）
+
+![](./screenshot/ui_login.png)      ![](./screenshot/ui_devices.png)
+
+![](./screenshot/ui_user.png)      ![](./screenshot/ui_settings.png)
 
 ## License
 

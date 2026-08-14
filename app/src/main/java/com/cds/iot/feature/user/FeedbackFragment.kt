@@ -2,8 +2,9 @@ package com.cds.iot.feature.user
 
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
-import androidx.core.view.isVisible
+import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -15,13 +16,11 @@ import androidx.navigation.fragment.findNavController
 import com.cds.iot.R
 import com.cds.iot.core.result.AppResult
 import com.cds.iot.data.repository.UserRepository
-import com.cds.iot.databinding.FragmentSimpleFormBinding
+import com.cds.iot.ui.setupActionBar
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,8 +28,6 @@ import javax.inject.Inject
 class FeedbackViewModel @Inject constructor(
     private val userRepository: UserRepository,
 ) : ViewModel() {
-    private val _loading = MutableStateFlow(false)
-    val loading = _loading.asStateFlow()
     private val _message = MutableSharedFlow<String>()
     val message = _message.asSharedFlow()
     private val _done = MutableSharedFlow<Unit>()
@@ -38,7 +35,6 @@ class FeedbackViewModel @Inject constructor(
 
     fun submit(content: String, contact: String) {
         viewModelScope.launch {
-            _loading.value = true
             when (val result = userRepository.feedback(content, contact)) {
                 is AppResult.Success -> {
                     _message.emit("感谢反馈")
@@ -47,30 +43,22 @@ class FeedbackViewModel @Inject constructor(
                 is AppResult.Error -> _message.emit(result.message)
                 AppResult.Loading -> Unit
             }
-            _loading.value = false
         }
     }
 }
 
 @AndroidEntryPoint
-class FeedbackFragment : Fragment(R.layout.fragment_simple_form) {
+class FeedbackFragment : Fragment(R.layout.activity_feedback) {
     private val viewModel: FeedbackViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val binding = FragmentSimpleFormBinding.bind(view)
-        binding.toolbar.title = getString(R.string.feedback)
-        binding.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        binding.fieldOneLayout.hint = "反馈内容"
-        binding.fieldTwoLayout.hint = "联系方式（选填）"
-        binding.submitButton.setOnClickListener {
-            viewModel.submit(
-                binding.fieldOne.text?.toString().orEmpty(),
-                binding.fieldTwo.text?.toString().orEmpty(),
-            )
+        view.setupActionBar(getString(R.string.feedback)) { findNavController().navigateUp() }
+        val content = view.findViewById<EditText>(R.id.sosMsg)
+        view.findViewById<AppCompatButton>(R.id.feedback_submit_btn).setOnClickListener {
+            viewModel.submit(content.text?.toString().orEmpty(), "")
         }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch { viewModel.loading.collect { binding.progress.isVisible = it } }
                 launch {
                     viewModel.message.collect {
                         Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()

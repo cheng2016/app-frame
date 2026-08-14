@@ -1,55 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_theme_background">
+    android:background="@color/app_content_bg"
+    android:orientation="vertical">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <!--    <include layout="@layout/action_bar" />-->
+
+    <!--    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Device" />-->
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/widget_size_140"
+        android:background="@mipmap/bg_mainpage">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/md_theme_primary"
-            app:title="@string/device"
-            app:titleTextColor="@android:color/white"
-            app:menu="@menu/menu_device" />
-    </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/refresh"
+        <TextView
+            android:id="@+id/location_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/widget_size_13"
+            android:layout_marginTop="@dimen/widget_size_13"
+            android:drawableLeft="@mipmap/icn_currentlocation"
+            android:drawablePadding="@dimen/widget_size_5"
+            android:text="深圳"
+            android:textSize="@dimen/widget_size_16" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/widget_size_13"
+            android:text="32/36。C"
+            android:textSize="@dimen/widget_size_16" />
+
+        <ImageView
+            android:id="@+id/add_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/widget_size_13"
+            android:layout_marginTop="@dimen/widget_size_13"
+            app:srcCompat="@mipmap/btn_adddevice" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/location_tv"
+            android:layout_marginLeft="@dimen/widget_size_13"
+            android:layout_marginTop="@dimen/widget_size_13"
+            android:text="室内空气：优 周边水质：不可直接饮用 环境湿度：潮湿"
+            android:textSize="@dimen/font_size_12" />
+    </RelativeLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:orientation="horizontal">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="@dimen/widget_size_55"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/deviceList"
+            <RelativeLayout
+                android:id="@+id/often_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/widget_size_55"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/menu_often_selector" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/widget_min_size_1"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/widget_size_5"
+                    android:layout_marginRight="@dimen/widget_size_5"
+                    android:background="@color/splite_line"
+                    android:visibility="visible" />
+            </RelativeLayout>
+
+
+            <ListView
+                android:id="@+id/menu_listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:padding="@dimen/space_md" />
+                android:layout_marginBottom="@dimen/widget_size_56"
+                android:layout_marginTop="@dimen/widget_size_56"
 
-            <TextView
-                android:id="@+id/emptyView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/empty_devices"
-                android:textColor="@color/md_theme_outline"
-                android:visibility="gone" />
+                android:divider="@null"
+                android:listSelector="@null"
+                android:visibility="visible">
 
-            <ProgressBar
-                android:id="@+id/progress"
-                android:layout_width="wrap_content"
+            </ListView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-        </FrameLayout>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/widget_min_size_1"
+                    android:layout_marginLeft="@dimen/widget_size_5"
+                    android:layout_marginRight="@dimen/widget_size_5"
+                    android:background="@color/splite_line" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/widget_size_55"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@mipmap/icn_set_small" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="@dimen/widget_min_size_1"
+            android:layout_height="match_parent"
+            android:background="@color/splite_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/widget_size_55">
+
+                <TextView
+                    android:id="@+id/device_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/widget_size_20"
+                    android:text="常用设备"
+                    android:textColor="@color/update_text_color"
+                    android:textSize="@dimen/widget_size_16" />
+
+                <ImageView
+                    android:id="@+id/edit_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:visibility="invisible"
+                    android:layout_marginRight="@dimen/widget_size_20"
+                    android:src="@mipmap/btn_editorstage" />
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/widget_min_size_1"
+                android:background="@color/splite_line" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/empty_view"
+                    style="@style/hintNullStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:drawablePadding="@dimen/widget_size_20"
+                    android:drawableTop="@mipmap/image_nobinding"
+                    android:gravity="center"
+                    android:text="当前未绑定任何设备"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/text_enable_color"
+                    android:visibility="gone" />
+
+                <GridView
+                    android:id="@+id/device_gridview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/widget_size_8"
+                    android:horizontalSpacing="@dimen/widget_size_8"
+                    android:numColumns="2"
+                    android:verticalSpacing="@dimen/widget_size_8"></GridView>
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

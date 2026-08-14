@@ -2,24 +2,25 @@ package com.cds.iot.feature.user
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.cds.iot.R
-import com.cds.iot.databinding.FragmentSimpleFormBinding
+import com.cds.iot.ui.setupActionBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProductFragment : Fragment(R.layout.fragment_simple_form) {
+class ProductFragment : Fragment(R.layout.activity_product_description) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val binding = FragmentSimpleFormBinding.bind(view)
-        binding.toolbar.title = getString(R.string.product_desc)
-        binding.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        binding.fieldOneLayout.isVisible = false
-        binding.fieldTwoLayout.isVisible = false
-        binding.submitButton.isVisible = false
-        binding.contentText.isVisible = true
-        binding.contentText.text =
-            "酷达物联产品说明\n\n支持智能设备接入、场景联动、消息通知与账号体系。本页保留业务入口，内容可对接正式产品文档站点。"
+        view.setupActionBar(getString(R.string.product_desc)) { findNavController().navigateUp() }
+        view.findViewById<View>(R.id.content_layout).let { container ->
+            val text = TextView(requireContext()).apply {
+                setPadding(48, 48, 48, 48)
+                text = "酷达物联智能家居产品说明\n\n支持设备绑定、场景联动、消息提醒与微信生态能力。"
+                setTextColor(resources.getColor(R.color.text_enable_color, null))
+                textSize = 15f
+            }
+            (container as android.widget.FrameLayout).addView(text)
+        }
     }
 }

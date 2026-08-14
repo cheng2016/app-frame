@@ -3,7 +3,9 @@ package com.cds.iot.feature.user
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.isVisible
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatEditText
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -16,13 +18,11 @@ import com.cds.iot.R
 import com.cds.iot.core.result.AppResult
 import com.cds.iot.data.repository.AuthRepository
 import com.cds.iot.data.repository.UserRepository
-import com.cds.iot.databinding.FragmentRegisterBinding
+import com.cds.iot.ui.setupActionBar
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,8 +31,6 @@ class ChangePhoneViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val authRepository: AuthRepository,
 ) : ViewModel() {
-    private val _loading = MutableStateFlow(false)
-    val loading = _loading.asStateFlow()
     private val _message = MutableSharedFlow<String>()
     val message = _message.asSharedFlow()
     private val _done = MutableSharedFlow<Unit>()
@@ -50,7 +48,6 @@ class ChangePhoneViewModel @Inject constructor(
 
     fun submit(phone: String, code: String) {
         viewModelScope.launch {
-            _loading.value = true
             when (val result = userRepository.updatePhone(phone, code)) {
                 is AppResult.Success -> {
                     _message.emit("手机号已更新")
@@ -59,34 +56,29 @@ class ChangePhoneViewModel @Inject constructor(
                 is AppResult.Error -> _message.emit(result.message)
                 AppResult.Loading -> Unit
             }
-            _loading.value = false
         }
     }
 }
 
 @AndroidEntryPoint
-class ChangePhoneFragment : Fragment(R.layout.fragment_register) {
+class ChangePhoneFragment : Fragment(R.layout.activity_change_phone) {
     private val viewModel: ChangePhoneViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val binding = FragmentRegisterBinding.bind(view)
-        binding.toolbar.title = getString(R.string.change_phone)
-        binding.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        binding.passwordInput.hint = "可忽略"
-        binding.passwordInput.isEnabled = false
-        binding.registerButton.text = getString(R.string.confirm)
-        binding.sendCodeButton.setOnClickListener {
-            viewModel.sendCode(binding.phoneInput.text?.toString().orEmpty())
+        view.setupActionBar(getString(R.string.change_phone)) { findNavController().navigateUp() }
+        val phone = view.findViewById<AppCompatEditText>(R.id.phone_edit)
+        val code = view.findViewById<AppCompatEditText>(R.id.code_edit)
+        view.findViewById<AppCompatTextView>(R.id.getcode_tv).setOnClickListener {
+            viewModel.sendCode(phone.text?.toString().orEmpty())
         }
-        binding.registerButton.setOnClickListener {
+        view.findViewById<AppCompatButton>(R.id.change_phone_submit_btn).setOnClickListener {
             viewModel.submit(
-                binding.phoneInput.text?.toString().orEmpty(),
-                binding.codeInput.text?.toString().orEmpty(),
+                phone.text?.toString().orEmpty(),
+                code.text?.toString().orEmpty(),
             )
         }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch { viewModel.loading.collect { binding.progress.isVisible = it } }
                 launch {
                     viewModel.message.collect {
                         Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()

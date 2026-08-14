@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/space_sm"
-    app:cardCornerRadius="12dp">
+    android:background="@drawable/shape_input"
+    android:orientation="vertical"
+    android:padding="@dimen/widget_size_12">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/space_md">
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_size_16"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/meta"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_xs"
-            android:textColor="@color/md_theme_outline" />
-    </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+    <TextView
+        android:id="@+id/meta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/widget_size_5"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/font_size_13" />
+</LinearLayout>

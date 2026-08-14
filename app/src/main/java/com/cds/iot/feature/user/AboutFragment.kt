@@ -2,33 +2,19 @@ package com.cds.iot.feature.user
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.cds.iot.BuildConfig
 import com.cds.iot.R
-import com.cds.iot.databinding.FragmentSimpleFormBinding
+import com.cds.iot.ui.setupActionBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AboutFragment : Fragment(R.layout.fragment_simple_form) {
+class AboutFragment : Fragment(R.layout.activity_about_us) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val binding = FragmentSimpleFormBinding.bind(view)
-        binding.toolbar.title = getString(R.string.about)
-        binding.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        binding.fieldOneLayout.isVisible = false
-        binding.fieldTwoLayout.isVisible = false
-        binding.submitButton.isVisible = false
-        binding.contentText.isVisible = true
-        binding.contentText.text = buildString {
-            appendLine(getString(R.string.app_name))
-            appendLine("版本 ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})")
-            appendLine()
-            appendLine(getString(R.string.about_name))
-            appendLine(getString(R.string.about_website))
-            appendLine(getString(R.string.about_phone))
-            appendLine()
-            append("Kotlin · MVVM · Material 3 现代化 Demo")
-        }
+        view.setupActionBar(getString(R.string.about)) { findNavController().navigateUp() }
+        view.findViewById<TextView>(R.id.version_name_tv).text =
+            "v${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
     }
 }

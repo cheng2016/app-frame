@@ -1,7 +1,12 @@
 package com.cds.iot.feature.message
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.BaseAdapter
+import android.widget.ListView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -11,14 +16,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.cds.iot.R
 import com.cds.iot.core.result.AppResult
 import com.cds.iot.data.repository.UserRepository
-import com.cds.iot.databinding.FragmentMessageBinding
-import com.cds.iot.databinding.ItemMessageBinding
 import com.cds.iot.domain.model.MessageItem
-import com.cds.iot.ui.SimpleListAdapter
+import com.cds.iot.ui.setupActionBar
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -59,28 +61,40 @@ class MessageViewModel @Inject constructor(
 @AndroidEntryPoint
 class MessageFragment : Fragment(R.layout.fragment_message) {
     private val viewModel: MessageViewModel by viewModels()
+    private val items = mutableListOf<MessageItem>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val binding = FragmentMessageBinding.bind(view)
-        val adapter = SimpleListAdapter(
-            inflate = ItemMessageBinding::inflate,
-            bind = { itemBinding, item: MessageItem ->
-                itemBinding.title.text = item.title + if (item.read) "" else " · 未读"
-                itemBinding.body.text = item.body
-                itemBinding.time.text = item.time
-            },
-        )
-        binding.messageList.layoutManager = LinearLayoutManager(requireContext())
-        binding.messageList.adapter = adapter
+        view.setupActionBar(getString(R.string.message), showBack = false)
+        val listView = view.findViewById<ListView>(R.id.message_listview)
+        val emptyLayout = view.findViewById<View>(R.id.empty_layout)
+        val adapter = object : BaseAdapter() {
+            override fun getCount(): Int = items.size
+            override fun getItem(position: Int): MessageItem = items[position]
+            override fun getItemId(position: Int): Long = position.toLong()
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val row = convertView ?: LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_message, parent, false)
+                val item = getItem(position)
+                row.findViewById<TextView>(R.id.title).text =
+                    item.title + if (item.read) "" else " · 未读"
+                row.findViewById<TextView>(R.id.body).text = item.body
+                row.findViewById<TextView>(R.id.time).text = item.time
+                return row
+            }
+        }
+        listView.adapter = adapter
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.messages.collect {
-                        adapter.submit(it)
-                        binding.emptyView.isVisible = it.isEmpty()
+                        items.clear()
+                        items.addAll(it)
+                        adapter.notifyDataSetChanged()
+                        emptyLayout.isVisible = it.isEmpty()
+                        listView.isVisible = it.isNotEmpty()
                     }
                 }
-                launch { viewModel.loading.collect { binding.progress.isVisible = it } }
                 launch {
                     viewModel.message.collect {
                         Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()

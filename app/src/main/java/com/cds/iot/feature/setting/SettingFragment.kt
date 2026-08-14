@@ -2,6 +2,7 @@ package com.cds.iot.feature.setting
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,9 +13,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.cds.iot.BuildConfig
 import com.cds.iot.R
 import com.cds.iot.data.repository.AuthRepository
-import com.cds.iot.databinding.FragmentSettingBinding
+import com.cds.iot.ui.setupActionBar
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -52,25 +54,45 @@ class SettingViewModel @Inject constructor(
 }
 
 @AndroidEntryPoint
-class SettingFragment : Fragment(R.layout.fragment_setting) {
+class SettingFragment : Fragment(R.layout.activity_setting) {
     private val viewModel: SettingViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val binding = FragmentSettingBinding.bind(view)
-        binding.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        binding.itemNotify.setOnClickListener {
+        view.setupActionBar(getString(R.string.setting)) { findNavController().navigateUp() }
+        view.findViewById<TextView>(R.id.version_name_tv).text = "v${BuildConfig.VERSION_NAME}"
+        view.findViewById<TextView>(R.id.file_size_tv).text = "0KB"
+
+        view.findViewById<View>(R.id.message_notify_layout).setOnClickListener {
             findNavController().navigate(R.id.notifyFragment)
         }
-        binding.itemUpdate.setOnClickListener {
+        view.findViewById<View>(R.id.modify_password_layout).setOnClickListener {
+            findNavController().navigate(R.id.forgetFragment)
+        }
+        view.findViewById<View>(R.id.update_layout).setOnClickListener {
             findNavController().navigate(R.id.updateFragment)
         }
-        binding.itemClearCache.setOnClickListener { viewModel.clearCache() }
-        binding.itemLogout.setOnClickListener { viewModel.logout() }
+        view.findViewById<View>(R.id.clean_cache_layout).setOnClickListener {
+            viewModel.clearCache()
+            view.findViewById<TextView>(R.id.file_size_tv).text = "0KB"
+        }
+        view.findViewById<View>(R.id.logout_layout).setOnClickListener { viewModel.logout() }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            binding.demoSwitch.isChecked = viewModel.currentDemoMode()
-            binding.demoSwitch.setOnCheckedChangeListener { _, checked ->
-                viewModel.setDemoMode(checked)
+            val demo = viewModel.currentDemoMode()
+            if (!demo) {
+                // Keep demo mode available via long-press on version row.
+            }
+            view.findViewById<View>(R.id.update_layout).setOnLongClickListener {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    val enabled = !viewModel.currentDemoMode()
+                    viewModel.setDemoMode(enabled)
+                    Toast.makeText(
+                        requireContext(),
+                        if (enabled) "已开启 Demo 模式" else "已关闭 Demo 模式",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                }
+                true
             }
         }
 
