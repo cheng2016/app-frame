@@ -2,11 +2,11 @@
 
 sdk.dir=D\:\\Android\\Sdk
 
-# Optional release signing
-# STORE_FILE=path/to/keystore.jks
-# STORE_PASSWORD=
-# KEY_ALIAS=
-# KEY_PASSWORD=
+# Release / debug signing (defaults match historical demo keystore app/wecare.jks)
+# STORE_FILE=wecare.jks
+# STORE_PASSWORD=123456
+# KEY_ALIAS=wecare
+# KEY_PASSWORD=123456
 
 # Optional WeChat OpenSDK app id (never put AppSecret here)
 # WX_APP_ID=

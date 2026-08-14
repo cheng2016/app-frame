@@ -3,6 +3,12 @@
 面向智能家居/IoT 场景的 **Android 业务 Demo**，展示账号、设备、场景、消息与设置等完整主路径。  
 本仓库已从 2017 Java MVP 重构为 **Kotlin + MVVM + Material 3** 现代化架构，默认可在无后端环境下用 DemoMode 跑通。
 
+## 下载
+
+- **直接下载 APK**：[app-wecare-v2.0.0.apk](https://github.com/cheng2016/app-frame/releases/download/v2.0.0/app-wecare-v2.0.0.apk)
+- **Release 页面**：[v2.0.0](https://github.com/cheng2016/app-frame/releases/tag/v2.0.0)
+- 使用仓库内历史签名证书 `app/wecare.jks` 打包，**包名与签名 SHA1 与旧版一致**，便于地图 / 微信等按签名白名单鉴权的能力继续可用。
+
 ## 功能
 
 - 登录 / 注册 / 找回密码
@@ -62,7 +68,13 @@ cp local.properties.example local.properties
 ./gradlew assembleDebug
 ```
 
-可选签名与微信 AppId 见 `local.properties.example`。
+可选签名与微信 AppId 见 `local.properties.example`。  
+Release / Debug 默认均使用 `app/wecare.jks`（alias `wecare`）签名，与历史包指纹一致。
+
+```bash
+gradlew.bat assembleRelease
+# 产物：app/build/outputs/apk/release/app-release.apk
+```
 
 ## 截图
 

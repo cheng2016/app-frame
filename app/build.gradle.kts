@@ -37,14 +37,13 @@ android {
     }
 
     signingConfigs {
-        val storePath = localProps.getProperty("STORE_FILE")
-        if (!storePath.isNullOrBlank()) {
-            create("release") {
-                storeFile = file(storePath)
-                storePassword = localProps.getProperty("STORE_PASSWORD", "")
-                keyAlias = localProps.getProperty("KEY_ALIAS", "")
-                keyPassword = localProps.getProperty("KEY_PASSWORD", "")
-            }
+        // Keep using the historical wecare.jks so package SHA1 stays compatible
+        // with map / WeChat / vendor console whitelists.
+        create("wecare") {
+            storeFile = file(localProps.getProperty("STORE_FILE", "wecare.jks"))
+            storePassword = localProps.getProperty("STORE_PASSWORD", "123456")
+            keyAlias = localProps.getProperty("KEY_ALIAS", "wecare")
+            keyPassword = localProps.getProperty("KEY_PASSWORD", "123456")
         }
     }
 
@@ -52,15 +51,17 @@ android {
         debug {
             isMinifyEnabled = false
             buildConfigField("boolean", "ALLOW_CLEARTEXT", "true")
+            signingConfig = signingConfigs.getByName("wecare")
         }
         release {
-            isMinifyEnabled = true
+            // Keep features (maps SDKs, reflection, etc.) reliable for public demo APK.
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
             buildConfigField("boolean", "ALLOW_CLEARTEXT", "false")
-            signingConfigs.findByName("release")?.let { signingConfig = it }
+            signingConfig = signingConfigs.getByName("wecare")
         }
     }
 
